@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Our.Umbraco.Forms.Core;
 using Umbraco.Forms.Core.Models;
-using FormValueProvider = Our.Umbraco.Forms.Core.FormValueProvider;
+using FormValueProvider = Our.Umbraco.Forms.Validator.Core.FormValueProvider;
 
 namespace Our.Umbraco.Forms.Validator.Core.Rules;
 

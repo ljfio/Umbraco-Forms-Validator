@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Umbraco.Forms.Core.Models;
 
-namespace Our.Umbraco.Forms.Core;
+namespace Our.Umbraco.Forms.Validator.Core;
 
 public sealed class FormValueProvider
 {

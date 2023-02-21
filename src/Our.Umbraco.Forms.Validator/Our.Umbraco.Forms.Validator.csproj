@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Our.Umbraco.Forms.Core\Our.Umbraco.Forms.Core.csproj" />
       <ProjectReference Include="..\Our.Umbraco.Forms.Validator.Core\Our.Umbraco.Forms.Validator.Core.csproj" />
     </ItemGroup>
 

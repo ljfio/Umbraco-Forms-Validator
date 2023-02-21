@@ -1,4 +1,3 @@
-using Our.Umbraco.Forms.Core;
 using Our.Umbraco.Forms.Validator.Core;
 using Our.Umbraco.Forms.Validator.Core.Rules;
 

@@ -1,5 +1,3 @@
-using Our.Umbraco.Forms.Core;
-
 namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
 public abstract class FieldsComparisonRule : FieldValidationRule
