@@ -9,7 +9,7 @@ public sealed class FormValidationCollector
 
     public IEnumerable<FormValidationError> Errors => _errors.AsReadOnly();
 
-    public void TryAddValidationError(FormFieldValue value, string message)
+    public void AddValidationError(FormFieldValue value, string message)
     {
         AddValidationError(value.Field, message);
     }

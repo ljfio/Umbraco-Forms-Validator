@@ -34,8 +34,10 @@ public sealed class FormValueProvider
 
     private string? GetValue(string id)
     {
-        return _context.Request.HasFormContentType && _context.Request.Form.ContainsKey(id)
-            ? _context.Request.Form[id].ToString()
+        var request = _context.Request;
+        
+        return request.HasFormContentType && request.Form.ContainsKey(id)
+            ? request.Form[id].ToString()
             : null;
     }
 }
