@@ -15,7 +15,7 @@ public sealed class FormValueProvider
         _context = context;
     }
 
-    public FormFieldValue? GetFormValue(string alias)
+    public FormValue? GetFormValue(string alias)
     {
         var field = GetField(alias);
 
@@ -24,7 +24,7 @@ public sealed class FormValueProvider
 
         var value = GetValue(field.Id.ToString());
 
-        return new FormFieldValue(_form, field, value);
+        return new FormValue(field, value);
     }
 
     private Field? GetField(string alias)

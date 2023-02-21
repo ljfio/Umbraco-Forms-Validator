@@ -9,7 +9,7 @@ public abstract class FieldsComparisonRule : FieldValidationRule
         
     }
 
-    public override bool Validate(FormFieldValue field)
+    public override bool Validate(FormValue field)
     {
         var compareTo = Provider.GetFormValue(CompareFieldAlias);
 
@@ -19,5 +19,5 @@ public abstract class FieldsComparisonRule : FieldValidationRule
         return Validate(field, compareTo);
     }
     
-    public abstract bool Validate(FormFieldValue current, FormFieldValue compare);
+    public abstract bool Validate(FormValue current, FormValue compare);
 }

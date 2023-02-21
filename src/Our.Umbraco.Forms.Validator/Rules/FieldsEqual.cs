@@ -9,7 +9,7 @@ public class FieldsEqual : FieldsComparisonRule
     {
     }
     
-    public override bool Validate(FormFieldValue current, FormFieldValue compare)
+    public override bool Validate(FormValue current, FormValue compare)
     {
         throw new NotImplementedException();
     }
