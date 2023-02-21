@@ -1,18 +1,20 @@
 using Microsoft.AspNetCore.Http;
+using Our.Umbraco.Forms.Validator.Core.Settings;
 using Umbraco.Forms.Core.Models;
 
 namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
 public abstract class FieldValidationRule : IFormValidationRule
 {
-    public FieldValidationRule(Form form)
+    public FieldValidationRule(Form form, FieldValidationRuleSetting setting)
     {
         Form = form;
+        FieldId = setting.FieldId;
     }
 
     protected Form Form { get; }
 
-    public Guid FieldId { get; set; }
+    public Guid FieldId { get; }
     
     bool IFormValidationRule.Validate(FormValidationContext context)
     {

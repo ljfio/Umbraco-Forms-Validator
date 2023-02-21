@@ -1,15 +1,17 @@
 using Microsoft.AspNetCore.Http;
+using Our.Umbraco.Forms.Validator.Core.Settings;
 using Umbraco.Forms.Core.Models;
 
 namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
 public abstract class FieldsComparisonRule : FieldValidationRule, IFormValidationRule
 {
-    public FieldsComparisonRule(Form form) : base(form)
+    public FieldsComparisonRule(Form form, FieldsComparisonRuleSetting setting) : base(form, setting)
     {
+        CompareToFieldId = setting.CompareToFieldId;
     }
 
-    public Guid CompareToFieldId { get; set; }
+    public Guid CompareToFieldId { get; }
 
     bool IFormValidationRule.Validate(FormValidationContext context)
     {
