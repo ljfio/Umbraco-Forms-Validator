@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Umbraco.Forms.Core.Models;
 
-namespace Our.Umbraco.Forms.Validator.Services;
+namespace Our.Umbraco.Forms.Validator.Core.Services;
 
 public interface IFormValidatorService
 {
