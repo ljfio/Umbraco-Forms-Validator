@@ -6,13 +6,12 @@ namespace Our.Umbraco.Forms.Validator.Rules;
 
 public class FieldsGreaterThanOrEqual : FieldsComparisonRule
 {
-    public FieldsGreaterThanOrEqual(FormValueProvider provider, FormValidationCollector collector) : base(provider, collector)
+    public FieldsGreaterThanOrEqual(Form form, FormValueProvider provider) : base(form, provider)
     {
     }
-    
-    public override bool Validate(Form form, FormValue current, FormValue compare)
+
+    public override bool Validate(FormValue current, FormValue compare, FormValidationCollector collector)
     {
         throw new NotImplementedException();
     }
-
 }

@@ -1,18 +1,31 @@
+using Microsoft.AspNetCore.Http;
 using Umbraco.Forms.Core.Models;
 
 namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
-public abstract class FieldValidationRule
+public abstract class FieldValidationRule : IFormValidationRule
 {
-    public FieldValidationRule(FormValueProvider provider, FormValidationCollector collector)
+    public FieldValidationRule(Form form, FormValueProvider provider)
     {
+        Form = form;
         Provider = provider;
-        Collector = collector;
     }
 
+    protected Form Form { get; }
+    
     protected FormValueProvider Provider { get; }
+
+    public Guid FieldId { get; set; }
     
-    protected FormValidationCollector Collector { get; }
-    
-    public abstract bool Validate(Form form, FormValue field);
+    bool IFormValidationRule.Validate(HttpRequest request, FormValidationCollector collector)
+    {
+        var field = Provider.GetFormValue(request, FieldId);
+
+        if (field is null)
+            return false;
+
+        return Validate(field, collector);
+    }
+
+    public abstract bool Validate(FormValue value, FormValidationCollector collector);
 }
