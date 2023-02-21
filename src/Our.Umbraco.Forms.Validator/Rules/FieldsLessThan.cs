@@ -6,11 +6,11 @@ namespace Our.Umbraco.Forms.Validator.Rules;
 
 public class FieldsLessThan : FieldsComparisonRule
 {
-    public FieldsLessThan(Form form, FormValueProvider provider) : base(form, provider)
+    public FieldsLessThan(Form form) : base(form)
     {
     }
 
-    public override bool Validate(FormValue current, FormValue compare, FormValidationCollector collector)
+    public override bool Validate(FormValue current, FormValue compare, FormValidationContext context)
     {
         throw new NotImplementedException();
     }

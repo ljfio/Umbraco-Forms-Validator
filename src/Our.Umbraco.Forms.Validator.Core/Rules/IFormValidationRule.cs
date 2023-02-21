@@ -4,5 +4,5 @@ namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
 public interface IFormValidationRule
 {
-    bool Validate(HttpRequest request, FormValidationCollector collector);
+    bool Validate(FormValidationContext context);
 }

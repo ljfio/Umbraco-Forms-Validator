@@ -5,27 +5,24 @@ namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
 public abstract class FieldValidationRule : IFormValidationRule
 {
-    public FieldValidationRule(Form form, FormValueProvider provider)
+    public FieldValidationRule(Form form)
     {
         Form = form;
-        Provider = provider;
     }
 
     protected Form Form { get; }
-    
-    protected FormValueProvider Provider { get; }
 
     public Guid FieldId { get; set; }
     
-    bool IFormValidationRule.Validate(HttpRequest request, FormValidationCollector collector)
+    bool IFormValidationRule.Validate(FormValidationContext context)
     {
-        var field = Provider.GetFormValue(request, FieldId);
+        var field = context.Provider.GetFormValue(context.Request, FieldId);
 
         if (field is null)
             return false;
 
-        return Validate(field, collector);
+        return Validate(field, context);
     }
 
-    public abstract bool Validate(FormValue value, FormValidationCollector collector);
+    public abstract bool Validate(FormValue value, FormValidationContext context);
 }
