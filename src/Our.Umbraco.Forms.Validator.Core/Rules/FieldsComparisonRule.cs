@@ -4,7 +4,7 @@ namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
 public abstract class FieldsComparisonRule : FieldValidationRule
 {
-    public string? CompareFieldAlias { get; set; }
+    public Guid CompareToFieldId { get; set; }
     
     public FieldsComparisonRule(FormValueProvider provider, FormValidationCollector collector) : base(provider, collector)
     {
@@ -13,7 +13,7 @@ public abstract class FieldsComparisonRule : FieldValidationRule
 
     public override bool Validate(Form form, FormValue field)
     {
-        var compareTo = Provider.GetFormValue(CompareFieldAlias);
+        var compareTo = Provider.GetFormValue(CompareToFieldId);
 
         if (compareTo is null)
             return false;
