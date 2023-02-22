@@ -1,5 +1,7 @@
+// Copyright 2023 Luke Fisher
+// SPDX-License-Identifier: Apache-2.0
+
 using System.Runtime.Serialization;
-using Umbraco.Forms.Core.Models;
 
 namespace Our.Umbraco.Forms.Validator.Core.Settings;
 
