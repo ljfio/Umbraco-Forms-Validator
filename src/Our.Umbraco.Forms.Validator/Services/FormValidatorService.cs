@@ -28,7 +28,9 @@ public sealed class FormValidatorService : IFormValidatorService
 
         foreach (var rule in rules)
         {
-            rule.Validate(validationContext);
+            bool stopProcessing = rule.Validate(validationContext);
+            
+            if (stopProcessing) break;
         }
         
         UpdateModelState(modelState, collector);
