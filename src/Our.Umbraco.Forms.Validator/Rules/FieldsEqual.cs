@@ -13,6 +13,11 @@ public class FieldsEqual : FieldsComparisonRule
 
     public override bool Validate(FormValue current, FormValue compare, FormValidationContext context)
     {
-        throw new NotImplementedException();
+        if (!string.Equals(current.Value, compare.Value))
+        {
+            context.Collector.AddValidationError(current, "Values do not match");
+        }
+
+        return false;
     }
 }

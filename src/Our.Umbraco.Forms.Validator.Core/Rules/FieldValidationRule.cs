@@ -9,13 +9,17 @@ public abstract class FieldValidationRule : IFormValidationRule
     public FieldValidationRule(Form form, FieldValidationRuleSetting setting)
     {
         Form = form;
+        Setting = setting;
+        
         FieldId = setting.FieldId;
     }
 
     protected Form Form { get; }
+    
+    protected IValidationRuleSetting Setting { get; }
 
     public Guid FieldId { get; }
-    
+
     bool IFormValidationRule.Validate(FormValidationContext context)
     {
         var field = context.Provider.GetFormValue(context.Request, FieldId);
