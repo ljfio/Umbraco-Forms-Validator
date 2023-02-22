@@ -3,11 +3,11 @@ using Our.Umbraco.Forms.Validator.Core.Rules;
 using Our.Umbraco.Forms.Validator.Core.Settings;
 using Umbraco.Forms.Core.Models;
 
-namespace Our.Umbraco.Forms.Validator.Rules;
+namespace Our.Umbraco.Forms.Validator.Rules.FieldComparison;
 
-public class FieldsGreaterThanOrEqual : FieldsComparisonRule
+public class FieldLessThanOrEqual : FieldComparisonRule
 {
-    public FieldsGreaterThanOrEqual(Form form, FieldsComparisonRuleSetting setting) : base(form, setting)
+    public FieldLessThanOrEqual(Form form, FieldsComparisonRuleSetting setting) : base(form, setting)
     {
     }
 

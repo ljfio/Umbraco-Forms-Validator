@@ -4,9 +4,9 @@ using Umbraco.Forms.Core.Models;
 
 namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
-public abstract class FieldsComparisonRule : FieldValidationRule, IFormValidationRule
+public abstract class FieldComparisonRule : FieldValidationRule, IFormValidationRule
 {
-    public FieldsComparisonRule(Form form, FieldsComparisonRuleSetting setting) : base(form, setting)
+    public FieldComparisonRule(Form form, FieldsComparisonRuleSetting setting) : base(form, setting)
     {
         CompareToFieldId = setting.CompareToFieldId;
     }
