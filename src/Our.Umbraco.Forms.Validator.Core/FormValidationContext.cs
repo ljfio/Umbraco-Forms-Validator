@@ -13,14 +13,14 @@ public sealed class FormValidationContext
         Form form,
         IFormValidationSetting setting,
         HttpRequest request,
-        FormValidationCollector collector,
-        FormValueProvider provider)
+        FormValueProvider provider,
+        FormValidationCollector collector)
     {
         Form = form;
         Setting = setting;
         Request = request;
-        Collector = collector;
         Provider = provider;
+        Collector = collector;
     }
 
     public Form Form { get; }

@@ -29,7 +29,7 @@ public sealed class FormValidatorService : IFormValidatorService
 
         foreach (var rule in rules)
         {
-            var validationContext = new FormValidationContext(form, rule.Setting, context.Request, collector, provider);
+            var validationContext = new FormValidationContext(form, rule.Setting, context.Request, provider, collector);
             
             bool stopProcessing = rule.Rule.Validate(validationContext);
             
