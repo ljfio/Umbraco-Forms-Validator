@@ -5,5 +5,8 @@ namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
 public interface IFormValidationRule
 {
+    Guid Id { get; }
+    string Name { get; }
+    string Description { get; }
     bool Validate(FormValidationContext context);
 }

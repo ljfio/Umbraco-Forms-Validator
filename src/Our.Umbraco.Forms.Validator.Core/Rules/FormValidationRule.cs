@@ -13,6 +13,12 @@ public abstract class FormValidationRule : IFormValidationRule
         Form = form;
         Setting = setting;
     }
+    
+    public Guid Id { get; }
+
+    public string Name { get; }
+
+    public string Description { get; }
 
     protected Form Form { get; }
 
