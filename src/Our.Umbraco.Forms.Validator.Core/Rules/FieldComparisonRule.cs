@@ -2,23 +2,18 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using Our.Umbraco.Forms.Validator.Core.Settings;
-using Umbraco.Forms.Core.Models;
 
 namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
 public abstract class FieldComparisonRule : FieldValidationRule, IFormValidationRule
 {
-    public FieldComparisonRule(Form form, FieldsComparisonRuleSetting setting) : base(form, setting)
-    {
-        CompareToFieldId = setting.CompareToFieldId;
-    }
-
-    public Guid CompareToFieldId { get; }
-
     bool IFormValidationRule.Validate(FormValidationContext context)
     {
-        var current = context.Provider.GetFormValue(context.Request, FieldId);
-        var compare = context.Provider.GetFormValue(context.Request, CompareToFieldId);
+        if (context.Setting is not FieldsComparisonRuleSetting setting)
+            throw new InvalidOperationException();
+        
+        var current = context.Provider.GetFormValue(context.Request, setting.FieldId);
+        var compare = context.Provider.GetFormValue(context.Request, setting.CompareToFieldId);
 
         if (current is null || compare is null)
             return false;

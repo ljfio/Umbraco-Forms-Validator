@@ -3,14 +3,12 @@
 
 using Our.Umbraco.Forms.Validator.Core;
 using Our.Umbraco.Forms.Validator.Core.Rules;
-using Our.Umbraco.Forms.Validator.Core.Settings;
-using Umbraco.Forms.Core.Models;
 
 namespace Our.Umbraco.Forms.Validator.Rules.FieldValidation;
 
 public class FieldLessThanOrEqual : FieldValidationRule
 {
-    public FieldLessThanOrEqual(Form form, FieldValidationRuleSetting setting) : base(form, setting)
+    public FieldLessThanOrEqual()
     {
         Id = new Guid("2A38A3FC-6696-45DC-9BD1-BF5B0D5EA4A1");
         Name = "Less Than or Equal to Value";

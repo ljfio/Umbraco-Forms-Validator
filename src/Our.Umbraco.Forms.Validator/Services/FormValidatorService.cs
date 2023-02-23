@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Our.Umbraco.Forms.Validator.Core;
 using Our.Umbraco.Forms.Validator.Core.Cache;
 using Our.Umbraco.Forms.Validator.Core.Services;
+using Our.Umbraco.Forms.Validator.Core.Settings;
 using Umbraco.Forms.Core.Models;
 using FormValueProvider = Our.Umbraco.Forms.Validator.Core.FormValueProvider;
 
@@ -25,12 +26,15 @@ public sealed class FormValidatorService : IFormValidatorService
         var collector = new FormValidationCollector();
         var provider = new FormValueProvider(form);
         
-        var validationContext = new FormValidationContext(context.Request, collector, provider);
-
         var rules = _ruleCache.GetRulesFor(form);
 
         foreach (var rule in rules)
         {
+            // TODO: Get from cache
+            var setting = new FieldsComparisonRuleSetting();
+
+            var validationContext = new FormValidationContext(form, setting, context.Request, collector, provider);
+            
             bool stopProcessing = rule.Validate(validationContext);
             
             if (stopProcessing) break;

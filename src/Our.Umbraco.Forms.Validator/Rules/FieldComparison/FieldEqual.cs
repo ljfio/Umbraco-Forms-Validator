@@ -3,14 +3,12 @@
 
 using Our.Umbraco.Forms.Validator.Core;
 using Our.Umbraco.Forms.Validator.Core.Rules;
-using Our.Umbraco.Forms.Validator.Core.Settings;
-using Umbraco.Forms.Core.Models;
 
 namespace Our.Umbraco.Forms.Validator.Rules.FieldComparison;
 
 public class FieldEqual : FieldComparisonRule
 {
-    public FieldEqual(Form form, FieldsComparisonRuleSetting setting) : base(form, setting)
+    public FieldEqual()
     {
         Id = new Guid("BCB7C977-639B-4821-A29E-E4D7A492136B");
         Name = "Equal to Field";

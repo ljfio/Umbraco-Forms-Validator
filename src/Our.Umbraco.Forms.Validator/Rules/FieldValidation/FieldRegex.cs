@@ -3,14 +3,12 @@
 
 using Our.Umbraco.Forms.Validator.Core;
 using Our.Umbraco.Forms.Validator.Core.Rules;
-using Our.Umbraco.Forms.Validator.Core.Settings;
-using Umbraco.Forms.Core.Models;
 
 namespace Our.Umbraco.Forms.Validator.Rules.FieldValidation;
 
 public class FieldRegex : FieldValidationRule
 {
-    public FieldRegex(Form form, FieldValidationRuleSetting setting) : base(form, setting)
+    public FieldRegex()
     {
         Id = new Guid("1ABD4D8B-1864-4F1A-A385-1D786A8A9F9F");
         Name = "Regex";

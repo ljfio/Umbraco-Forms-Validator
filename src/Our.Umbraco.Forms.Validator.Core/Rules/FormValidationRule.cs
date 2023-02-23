@@ -8,21 +8,11 @@ namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
 public abstract class FormValidationRule : IFormValidationRule
 {
-    public FormValidationRule(Form form, IValidationRuleSetting setting)
-    {
-        Form = form;
-        Setting = setting;
-    }
-    
     public Guid Id { get; protected init; }
 
     public string Name { get; protected init; }
 
     public string Description { get; protected init; }
-
-    protected Form Form { get; }
-
-    protected IValidationRuleSetting Setting { get; }
 
     bool IFormValidationRule.Validate(FormValidationContext context)
     {
