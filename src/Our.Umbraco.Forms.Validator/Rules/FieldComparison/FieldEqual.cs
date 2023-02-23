@@ -12,6 +12,9 @@ public class FieldEqual : FieldComparisonRule
 {
     public FieldEqual(Form form, FieldsComparisonRuleSetting setting) : base(form, setting)
     {
+        Id = new Guid("BCB7C977-639B-4821-A29E-E4D7A492136B");
+        Name = "Equal to Field";
+        Description = "Fails validation if this field is not equal when compared";
     }
 
     public override bool Validate(FormValue current, FormValue compare, FormValidationContext context)

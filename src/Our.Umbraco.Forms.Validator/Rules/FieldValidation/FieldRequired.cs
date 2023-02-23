@@ -12,6 +12,9 @@ public class FieldRequired : FieldValidationRule
 {
     public FieldRequired(Form form, FieldValidationRuleSetting setting) : base(form, setting)
     {
+        Id = new Guid("458890B0-591E-4135-A951-B26FB0A8E6F3");
+        Name = "Required";
+        Description = "Fails validation if this field is not set";
     }
 
     public override bool Validate(FormValue value, FormValidationContext context)

@@ -12,6 +12,9 @@ public class FieldGreaterThan : FieldValidationRule
 {
     public FieldGreaterThan(Form form, FieldValidationRuleSetting setting) : base(form, setting)
     {
+        Id = new Guid("6684ABC4-609D-43A4-A780-10968FC8E9B3");
+        Name = "Greater Than Value";
+        Description = "Fails validation if this field is not greater than value";
     }
 
     public override bool Validate(FormValue value, FormValidationContext context)

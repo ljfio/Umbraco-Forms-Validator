@@ -14,11 +14,11 @@ public abstract class FormValidationRule : IFormValidationRule
         Setting = setting;
     }
     
-    public Guid Id { get; }
+    public Guid Id { get; protected init; }
 
-    public string Name { get; }
+    public string Name { get; protected init; }
 
-    public string Description { get; }
+    public string Description { get; protected init; }
 
     protected Form Form { get; }
 
