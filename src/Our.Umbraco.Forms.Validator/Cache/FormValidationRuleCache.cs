@@ -13,12 +13,13 @@ namespace Our.Umbraco.Forms.Validator.Cache;
 public class FormValidationRuleCache : IFormValidationRuleCache
 {
     private FormValidationRuleCollection _validRules;
-    
+
     private IDictionary<Guid, IList<IFormValidationRuleWithSetting>> _rulesCache;
 
     public FormValidationRuleCache(FormValidationRuleCollection rules)
     {
         _validRules = rules;
+        _rulesCache = new Dictionary<Guid, IList<IFormValidationRuleWithSetting>>();
     }
 
     public void AddRule(Form form, Guid ruleId, IFormValidationSetting setting)
