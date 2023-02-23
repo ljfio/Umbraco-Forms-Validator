@@ -12,7 +12,7 @@ public sealed class FormValidationContext
 {
     public FormValidationContext(
         Form form,
-        IValidationRuleSetting setting,
+        IFormValidationRuleSetting setting,
         HttpRequest request,
         FormValidationCollector collector,
         FormValueProvider provider)
@@ -26,7 +26,7 @@ public sealed class FormValidationContext
 
     public Form Form { get; }
     
-    public IValidationRuleSetting Setting { get; }
+    public IFormValidationRuleSetting Setting { get; }
     
     public HttpRequest Request { get; }
 

@@ -6,8 +6,9 @@ using System.Runtime.Serialization;
 namespace Our.Umbraco.Forms.Validator.Core.Settings;
 
 [Serializable]
-public class FieldsComparisonRuleSetting : FieldValidationRuleSetting
+[DataContract]
+public abstract class FormValidationRuleSetting : IFormValidationRuleSetting
 {
     [DataMember]
-    public Guid CompareToFieldId { get; set; }
+    public string? Message { get; set; }
 }

@@ -31,7 +31,7 @@ public sealed class FormValidatorService : IFormValidatorService
         foreach (var rule in rules)
         {
             // TODO: Get from cache
-            var setting = new FieldsComparisonRuleSetting();
+            var setting = new FieldComparisonRuleSetting();
 
             var validationContext = new FormValidationContext(form, setting, context.Request, collector, provider);
             
