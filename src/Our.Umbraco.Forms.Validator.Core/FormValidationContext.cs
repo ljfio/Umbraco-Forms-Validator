@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using Microsoft.AspNetCore.Http;
-using Our.Umbraco.Forms.Validator.Core.Rules;
 using Our.Umbraco.Forms.Validator.Core.Settings;
 using Umbraco.Forms.Core.Models;
 
@@ -12,7 +11,7 @@ public sealed class FormValidationContext
 {
     public FormValidationContext(
         Form form,
-        IFormValidationRuleSetting setting,
+        IFormValidationSetting setting,
         HttpRequest request,
         FormValidationCollector collector,
         FormValueProvider provider)
@@ -26,7 +25,7 @@ public sealed class FormValidationContext
 
     public Form Form { get; }
     
-    public IFormValidationRuleSetting Setting { get; }
+    public IFormValidationSetting Setting { get; }
     
     public HttpRequest Request { get; }
 

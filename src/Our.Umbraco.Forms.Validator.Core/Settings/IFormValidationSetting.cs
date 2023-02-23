@@ -3,7 +3,7 @@
 
 namespace Our.Umbraco.Forms.Validator.Core.Settings;
 
-public interface IFormValidationRuleSetting
+public interface IFormValidationSetting
 {
     string? Message { get; set; }
 }

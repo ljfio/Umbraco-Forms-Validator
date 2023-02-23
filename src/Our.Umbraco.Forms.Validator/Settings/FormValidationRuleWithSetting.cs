@@ -8,7 +8,7 @@ namespace Our.Umbraco.Forms.Validator.Settings;
 
 public class FormValidationRuleWithSetting : IFormValidationRuleWithSetting
 {
-    public FormValidationRuleWithSetting(IFormValidationRule rule, IFormValidationRuleSetting setting)
+    public FormValidationRuleWithSetting(IFormValidationRule rule, IFormValidationSetting setting)
     {
         Rule = rule;
         Setting = setting;
@@ -16,5 +16,5 @@ public class FormValidationRuleWithSetting : IFormValidationRuleWithSetting
 
     public IFormValidationRule Rule { get; }
     
-    public IFormValidationRuleSetting Setting { get; }
+    public IFormValidationSetting Setting { get; }
 }

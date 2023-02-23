@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 namespace Our.Umbraco.Forms.Validator.Core.Settings;
 
 [Serializable]
-public class FieldComparisonRuleSetting : FormValidationRuleSetting
+public class FieldComparisonSetting : FormValidationSetting
 {
     [DataMember]
     public Guid FieldId { get; set; }

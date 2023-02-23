@@ -9,7 +9,7 @@ public abstract class FieldComparisonRule : FieldValidationRule, IFormValidation
 {
     bool IFormValidationRule.Validate(FormValidationContext context)
     {
-        if (context.Setting is not FieldComparisonRuleSetting setting)
+        if (context.Setting is not FieldComparisonSetting setting)
             throw new InvalidOperationException();
         
         var current = context.Provider.GetFormValue(context.Request, setting.FieldId);

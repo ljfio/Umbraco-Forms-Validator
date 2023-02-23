@@ -6,11 +6,9 @@ using System.Runtime.Serialization;
 namespace Our.Umbraco.Forms.Validator.Core.Settings;
 
 [Serializable]
-public class FieldValidationRuleSetting : FormValidationRuleSetting
+[DataContract]
+public class FormValidationSetting : IFormValidationSetting
 {
     [DataMember]
-    public Guid FieldId { get; set; }
-    
-    [DataMember]
-    public string? Value { get; set; }
+    public string? Message { get; set; }
 }

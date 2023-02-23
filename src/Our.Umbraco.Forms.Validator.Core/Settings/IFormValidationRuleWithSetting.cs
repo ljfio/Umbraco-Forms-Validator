@@ -9,5 +9,5 @@ public interface IFormValidationRuleWithSetting
 {
     IFormValidationRule Rule { get; }
 
-    IFormValidationRuleSetting Setting { get; }
+    IFormValidationSetting Setting { get; }
 }

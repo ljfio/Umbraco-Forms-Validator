@@ -9,7 +9,7 @@ public abstract class FieldValidationRule : FormValidationRule, IFormValidationR
 {
     bool IFormValidationRule.Validate(FormValidationContext context)
     {
-        if (context.Setting is not FieldValidationRuleSetting setting)
+        if (context.Setting is not FieldValidationSetting setting)
             throw new InvalidOperationException();
         
         var field = context.Provider.GetFormValue(context.Request, setting.FieldId);

@@ -21,7 +21,7 @@ public class FormValidationRuleCache : IFormValidationRuleCache
         _validRules = rules;
     }
 
-    public void AddRule(Form form, Guid ruleId, IFormValidationRuleSetting setting)
+    public void AddRule(Form form, Guid ruleId, IFormValidationSetting setting)
     {
         var rule = _validRules[ruleId];
         
