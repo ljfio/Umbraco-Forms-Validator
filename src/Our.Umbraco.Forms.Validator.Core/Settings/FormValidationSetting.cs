@@ -10,5 +10,8 @@ namespace Our.Umbraco.Forms.Validator.Core.Settings;
 public class FormValidationSetting : IFormValidationSetting
 {
     [DataMember]
+    public Guid Id { get; set; }
+
+    [DataMember]
     public string? Message { get; set; }
 }

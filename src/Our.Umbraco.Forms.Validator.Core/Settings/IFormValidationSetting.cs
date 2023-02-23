@@ -5,5 +5,7 @@ namespace Our.Umbraco.Forms.Validator.Core.Settings;
 
 public interface IFormValidationSetting
 {
-    string? Message { get; set; }
+    Guid Id { get; }
+    
+    string? Message { get; }
 }
