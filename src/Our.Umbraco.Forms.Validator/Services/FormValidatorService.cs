@@ -30,12 +30,9 @@ public sealed class FormValidatorService : IFormValidatorService
 
         foreach (var rule in rules)
         {
-            // TODO: Get from cache
-            var setting = new FieldComparisonRuleSetting();
-
-            var validationContext = new FormValidationContext(form, setting, context.Request, collector, provider);
+            var validationContext = new FormValidationContext(form, rule.Setting, context.Request, collector, provider);
             
-            bool stopProcessing = rule.Validate(validationContext);
+            bool stopProcessing = rule.Rule.Validate(validationContext);
             
             if (stopProcessing) break;
         }
