@@ -8,6 +8,6 @@ namespace Our.Umbraco.Forms.Validator.Core.Extensions;
 
 public static class UmbracoBuilderExtensions
 {
-    public static FormValidationRuleCollectionBuilder FormsValidation(this IUmbracoBuilder builder) =>
+    public static FormValidationRuleCollectionBuilder FormValidationRules(this IUmbracoBuilder builder) =>
         builder.WithCollectionBuilder<FormValidationRuleCollectionBuilder>();
 }
