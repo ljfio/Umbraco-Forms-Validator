@@ -7,7 +7,7 @@ namespace Our.Umbraco.Forms.Validator.Core.Settings;
 
 [Serializable]
 [DataContract]
-public abstract class FormValidationRuleSetting : IFormValidationRuleSetting
+public class FormValidationRuleSetting : IFormValidationRuleSetting
 {
     [DataMember]
     public string? Message { get; set; }
