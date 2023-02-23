@@ -5,15 +5,15 @@ using Our.Umbraco.Forms.Validator.Core.Settings;
 
 namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
-public abstract class FieldComparisonRule : FieldValidationRule, IFormValidationRule
+public abstract class FieldComparisonRule : FormValidationRule, IFormValidationRule
 {
     bool IFormValidationRule.Validate(FormValidationContext context)
     {
         if (context.Setting is not FieldComparisonSetting setting)
             throw new InvalidOperationException();
         
-        var current = context.Provider.GetFormValue(context.Request, setting.FieldId);
-        var compare = context.Provider.GetFormValue(context.Request, setting.CompareToFieldId);
+        var current = context.Provider.GetFormValue(setting.FieldId);
+        var compare = context.Provider.GetFormValue(setting.CompareToFieldId);
 
         if (current is null || compare is null)
             return false;
@@ -21,7 +21,7 @@ public abstract class FieldComparisonRule : FieldValidationRule, IFormValidation
         return Validate(current, compare, context);
     }
 
-    public override bool Validate(FormValue value, FormValidationContext context)
+    public override bool Validate(FormValidationContext context)
     {
         throw new InvalidOperationException();
     }

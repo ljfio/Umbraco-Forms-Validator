@@ -12,7 +12,7 @@ public abstract class FieldValidationRule : FormValidationRule, IFormValidationR
         if (context.Setting is not FieldValidationSetting setting)
             throw new InvalidOperationException();
         
-        var field = context.Provider.GetFormValue(context.Request, setting.FieldId);
+        var field = context.Provider.GetFormValue(setting.FieldId);
 
         if (field is null)
             return false;

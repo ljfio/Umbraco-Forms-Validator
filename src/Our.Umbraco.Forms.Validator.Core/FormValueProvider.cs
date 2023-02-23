@@ -9,32 +9,34 @@ namespace Our.Umbraco.Forms.Validator.Core;
 public sealed class FormValueProvider
 {
     private readonly Form _form;
+    private readonly HttpRequest _request;
 
-    public FormValueProvider(Form form)
+    public FormValueProvider(Form form, HttpRequest request)
     {
         _form = form;
+        _request = request;
     }
 
-    public FormValue? GetFormValue(HttpRequest request, Guid id)
+    public FormValue? GetFormValue(Guid id)
     {
         var field = GetField(id);
 
         if (field is null)
             return null;
 
-        var value = GetValue(request, field.Id);
+        var value = GetValue(field.Id);
 
         return new FormValue(field, value);
     }
 
-    public FormValue? GetFormValue(HttpRequest request, string alias)
+    public FormValue? GetFormValue(string alias)
     {
         var field = GetField(alias);
 
-        if (field is null) 
+        if (field is null)
             return null;
 
-        var value = GetValue(request, field.Id);
+        var value = GetValue(field.Id);
 
         return new FormValue(field, value);
     }
@@ -49,12 +51,12 @@ public sealed class FormValueProvider
         return _form.AllFields.SingleOrDefault(field => field.Alias == alias);
     }
 
-    private string? GetValue(HttpRequest request, Guid id)
+    private string? GetValue(Guid id)
     {
         string key = id.ToString();
-        
-        return request.HasFormContentType && request.Form.ContainsKey(key)
-            ? request.Form[key].ToString()
+
+        return _request.HasFormContentType && _request.Form.ContainsKey(key)
+            ? _request.Form[key].ToString()
             : null;
     }
 }
