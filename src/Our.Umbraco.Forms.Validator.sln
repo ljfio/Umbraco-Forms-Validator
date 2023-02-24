@@ -6,6 +6,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Our.Umbraco.Forms.Validator
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{88BD6297-A42D-4AED-A23A-990334C11156}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F6DF1B92-6734-4DE3-94B4-7A8D16A9A633}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Our.Umbraco.Forms.Validator.Tests", "Our.Umbraco.Forms.Validator.Tests\Our.Umbraco.Forms.Validator.Tests.csproj", "{708A16F6-EFDA-48BA-A904-900A04C7AF33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Our.Umbraco.Forms.Validator.Core.Tests", "Our.Umbraco.Forms.Validator.Core.Tests\Our.Umbraco.Forms.Validator.Core.Tests.csproj", "{2707661A-2546-40A5-8092-69C7F59C3129}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,9 +26,19 @@ Global
 		{B067546E-A3BF-40A4-8ACF-BB08B8CBFAA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B067546E-A3BF-40A4-8ACF-BB08B8CBFAA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B067546E-A3BF-40A4-8ACF-BB08B8CBFAA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{708A16F6-EFDA-48BA-A904-900A04C7AF33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{708A16F6-EFDA-48BA-A904-900A04C7AF33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{708A16F6-EFDA-48BA-A904-900A04C7AF33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{708A16F6-EFDA-48BA-A904-900A04C7AF33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2707661A-2546-40A5-8092-69C7F59C3129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2707661A-2546-40A5-8092-69C7F59C3129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2707661A-2546-40A5-8092-69C7F59C3129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2707661A-2546-40A5-8092-69C7F59C3129}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D1C6AF7B-81AD-485E-9878-EC495620B089} = {88BD6297-A42D-4AED-A23A-990334C11156}
 		{B067546E-A3BF-40A4-8ACF-BB08B8CBFAA6} = {88BD6297-A42D-4AED-A23A-990334C11156}
+		{708A16F6-EFDA-48BA-A904-900A04C7AF33} = {F6DF1B92-6734-4DE3-94B4-7A8D16A9A633}
+		{2707661A-2546-40A5-8092-69C7F59C3129} = {F6DF1B92-6734-4DE3-94B4-7A8D16A9A633}
 	EndGlobalSection
 EndGlobal
