@@ -8,4 +8,6 @@ public interface IFormValidationSetting
     Guid Id { get; }
     
     string? Message { get; }
+    
+    bool StopProcessing { get; }
 }

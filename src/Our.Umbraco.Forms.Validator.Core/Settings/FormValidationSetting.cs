@@ -14,4 +14,7 @@ public class FormValidationSetting : IFormValidationSetting
 
     [DataMember]
     public string? Message { get; set; }
+
+    [DataMember]
+    public bool StopProcessing { get; }
 }
