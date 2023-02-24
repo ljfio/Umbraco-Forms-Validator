@@ -8,6 +8,6 @@ namespace Our.Umbraco.Forms.Validator.Core.Cache;
 
 public interface IFormValidationRuleCache
 {
-    void AddRule(Form form, Guid ruleId, IFormValidationSetting setting);
-    IEnumerable<IFormValidationRuleWithSetting> GetRulesFor(Form form);
+    void Add(IFormValidationSetting setting);
+    IEnumerable<IFormValidationRuleWithSetting> RulesFor(Form form);
 }

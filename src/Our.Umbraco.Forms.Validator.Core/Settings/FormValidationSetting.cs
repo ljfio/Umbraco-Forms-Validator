@@ -13,6 +13,12 @@ public class FormValidationSetting : IFormValidationSetting
     public Guid Id { get; set; }
 
     [DataMember]
+    public Guid FormId { get; set; }
+    
+    [DataMember]
+    public Guid RuleId { get; set; }
+
+    [DataMember]
     public string? Message { get; set; }
 
     [DataMember]

@@ -7,6 +7,10 @@ public interface IFormValidationSetting
 {
     Guid Id { get; }
     
+    Guid FormId { get; }
+    
+    Guid RuleId { get; }
+    
     string? Message { get; }
     
     bool StopProcessing { get; }

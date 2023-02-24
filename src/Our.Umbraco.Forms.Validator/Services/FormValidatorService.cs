@@ -25,7 +25,7 @@ public sealed class FormValidatorService : IFormValidatorService
         var collector = new FormValidationCollector();
         var provider = new FormValueProvider(form, context.Request);
         
-        var rules = _ruleCache.GetRulesFor(form);
+        var rules = _ruleCache.RulesFor(form);
 
         foreach (var rule in rules)
         {

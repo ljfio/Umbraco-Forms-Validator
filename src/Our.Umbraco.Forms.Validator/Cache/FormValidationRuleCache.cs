@@ -22,21 +22,21 @@ public class FormValidationRuleCache : IFormValidationRuleCache
         _rulesCache = new Dictionary<Guid, IList<IFormValidationRuleWithSetting>>();
     }
 
-    public void AddRule(Form form, Guid ruleId, IFormValidationSetting setting)
+    public void Add(IFormValidationSetting setting)
     {
-        var rule = _validRules[ruleId];
+        var rule = _validRules[setting.RuleId];
         
-        if (!_rulesCache.ContainsKey(form.Id))
+        if (!_rulesCache.ContainsKey(setting.FormId))
         {
-            _rulesCache.Add(form.Id, new List<IFormValidationRuleWithSetting>());
+            _rulesCache.Add(setting.FormId, new List<IFormValidationRuleWithSetting>());
         }
 
-        var rules = _rulesCache[form.Id];
+        var rules = _rulesCache[setting.FormId];
         
         rules.Add(new FormValidationRuleWithSetting(rule, setting));
     }
 
-    public IEnumerable<IFormValidationRuleWithSetting> GetRulesFor(Form form)
+    public IEnumerable<IFormValidationRuleWithSetting> RulesFor(Form form)
     {
         if (_rulesCache.ContainsKey(form.Id))
         {
