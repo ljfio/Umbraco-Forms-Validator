@@ -6,11 +6,14 @@ using System.Runtime.Serialization;
 namespace Our.Umbraco.Forms.Validator.Core.Settings;
 
 [Serializable]
-public class FieldComparisonSetting : FormValidationSetting
+public class FieldComparisonSetting : FormValidationSetting, IFieldValidationSetting
 {
     [DataMember]
     public Guid FieldId { get; set; }
     
     [DataMember]
     public Guid CompareToFieldId { get; set; }
+
+    [DataMember]
+    public Guid ExpectedDataTypeId { get; set; }
 }
