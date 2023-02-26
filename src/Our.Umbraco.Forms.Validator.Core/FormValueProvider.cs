@@ -24,9 +24,7 @@ public sealed class FormValueProvider
         if (field is null)
             return null;
 
-        var value = GetValue(field.Id);
-
-        return new FormValue(field, value);
+        return GetFormValue(field);
     }
 
     public FormValue? GetFormValue(string alias)
@@ -36,17 +34,22 @@ public sealed class FormValueProvider
         if (field is null)
             return null;
 
+        return GetFormValue(field);
+    }
+
+    public FormValue GetFormValue(Field field)
+    {
         var value = GetValue(field.Id);
 
         return new FormValue(field, value);
     }
 
-    private Field? GetField(Guid id)
+    public Field? GetField(Guid id)
     {
         return _form.AllFields.SingleOrDefault(field => field.Id == id);
     }
 
-    private Field? GetField(string alias)
+    public Field? GetField(string alias)
     {
         return _form.AllFields.SingleOrDefault(field => field.Alias == alias);
     }
