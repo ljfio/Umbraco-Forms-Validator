@@ -6,13 +6,32 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <AssemblyName>Our.Umbraco.Forms.Validator.Core</AssemblyName>
+        <RootNamespace>Our.Umbraco.Forms.Validator.Core</RootNamespace>
+        <PackageId>Our.Umbraco.Forms.Validator.Core</PackageId>
+        <Description>The Missing Validator for Umbraco Forms</Description>
+        <PackageVersion>0.0.1-dev</PackageVersion>
+        <Authors>Luke Fisher</Authors>
+        <Copyright>Copyright 2023 Luke Fisher</Copyright>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/ljfio/Umbraco-Forms-Validator</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/ljfio/Umbraco-Forms-Validator.git</RepositoryUrl>
+    </PropertyGroup>
+
     <ItemGroup Condition="$(TargetFramework) == 'net6.0'">
       <PackageReference Include="Umbraco.Forms.Core" Version="10.2.3" />
       <PackageReference Include="Umbraco.Forms.Core.Providers" Version="10.2.3" />
     </ItemGroup>
 
-    <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'" >
+    <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
         <PackageReference Include="Umbraco.Forms.Core" Version="11.0.2" />
         <PackageReference Include="Umbraco.Forms.Core.Providers" Version="11.0.2" />
     </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+    
 </Project>

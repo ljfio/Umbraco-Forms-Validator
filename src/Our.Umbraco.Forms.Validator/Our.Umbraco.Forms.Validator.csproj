@@ -5,6 +5,20 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
+    
+    <PropertyGroup>
+        <AssemblyName>Our.Umbraco.Forms.Validator</AssemblyName>
+        <RootNamespace>Our.Umbraco.Forms.Validator</RootNamespace>
+        <PackageId>Our.Umbraco.Forms.Validator</PackageId>
+        <Description>The Missing Validator for Umbraco Forms</Description>
+        <PackageVersion>0.0.1-dev</PackageVersion>
+        <Authors>Luke Fisher</Authors>
+        <Copyright>Copyright 2023 Luke Fisher</Copyright>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/ljfio/Umbraco-Forms-Validator</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/ljfio/Umbraco-Forms-Validator.git</RepositoryUrl>
+    </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Our.Umbraco.Forms.Validator.Core\Our.Umbraco.Forms.Validator.Core.csproj" />
@@ -15,5 +29,9 @@
       <Folder Include="Controllers" />
       <Folder Include="Migrations" />
     </ItemGroup>
-
+    
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+    
 </Project>
