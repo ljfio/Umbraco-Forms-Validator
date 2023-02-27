@@ -17,6 +17,7 @@
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/ljfio/Umbraco-Forms-Validator</PackageProjectUrl>
         <RepositoryUrl>https://github.com/ljfio/Umbraco-Forms-Validator.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
     </PropertyGroup>
 
     <ItemGroup Condition="$(TargetFramework) == 'net6.0'">
