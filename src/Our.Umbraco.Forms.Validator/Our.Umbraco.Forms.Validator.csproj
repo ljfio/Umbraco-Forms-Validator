@@ -2,15 +2,18 @@
 
     <PropertyGroup>
         <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+        <ContentTargetFolders>.</ContentTargetFolders>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-    
+
     <PropertyGroup>
         <AssemblyName>Our.Umbraco.Forms.Validator</AssemblyName>
         <RootNamespace>Our.Umbraco.Forms.Validator</RootNamespace>
         <PackageId>Our.Umbraco.Forms.Validator</PackageId>
+        <Title>Our.Umbraco.Forms.Validator</Title>
         <Description>The Missing Validator for Umbraco Forms</Description>
+        <PackageTags>umbraco forms plugin package</PackageTags>
         <Authors>Luke Fisher</Authors>
         <Copyright>Copyright 2023 Luke Fisher</Copyright>
         <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -29,16 +32,21 @@
       <Folder Include="Controllers" />
       <Folder Include="Migrations" />
     </ItemGroup>
-    
+
     <ItemGroup>
         <None Include="..\..\README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
-    
+
     <ItemGroup>
       <PackageReference Include="MinVer" Version="4.3.0">
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         <PrivateAssets>all</PrivateAssets>
       </PackageReference>
     </ItemGroup>
-    
+
+    <ItemGroup>
+      <Content Include="App_Plugins\Our.Umbraco.Forms.Validator\**" ExcludeFromSingleFile="true" CopyToPublishDirectory="Always" />
+      <None Include="buildTransitive\**" Pack="true" PackagePath="buildTransitive" />
+    </ItemGroup>
+
 </Project>

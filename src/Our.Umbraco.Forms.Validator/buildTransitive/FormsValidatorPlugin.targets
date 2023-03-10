@@ -1,0 +1,21 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <FormsValidatorPluginContentFilesPath>$(MSBuildThisFileDirectory)..\App_Plugins\Our.Umbraco.Forms.Validator\**\*.*</FormsValidatorPluginContentFilesPath>
+  </PropertyGroup>
+
+  <Target Name="CopyFormsValidatorPluginAssets" BeforeTargets="Build">
+    <ItemGroup>
+      <FormsValidatorPluginContentFiles Include="$(FormsValidatorPluginContentFilesPath)" />
+    </ItemGroup>
+    <Message Text="Copying Validator files: $(FormsValidatorPluginContentFiles) - #@(FormsValidatorPluginContentFiles->Count()) files" Importance="high" />
+    <Copy SourceFiles="@(FormsValidatorPluginContentFiles)" DestinationFiles="@(FormsValidatorPluginContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\Our.Umbraco.Forms.Validator\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="ClearFormsValidatorPluginAssets" BeforeTargets="Clean">
+    <ItemGroup>
+      <FormsValidatorPluginDir Include="$(MSBuildProjectDirectory)\App_Plugins\Our.Umbraco.Forms.Validator\" />
+    </ItemGroup>
+    <Message Text="Clear old Validator data" Importance="high" />
+    <RemoveDir Directories="@(FormsValidatorPluginDir)" />
+  </Target>
+</Project>
