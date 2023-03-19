@@ -14,6 +14,7 @@ public class ServiceComposer : IComposer
     public void Compose(IUmbracoBuilder builder)
     {
         builder.Services
+            .AddSingleton<IFormValidationSettingFactory, FormValidationSettingFactory>()
             .AddSingleton<IFormValidationSettingService, FormValidationSettingService>()
             .AddSingleton<IFormValidatorService, FormValidatorService>();
     }

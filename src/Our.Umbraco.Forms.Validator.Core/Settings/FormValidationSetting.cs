@@ -22,5 +22,5 @@ public class FormValidationSetting : IFormValidationSetting
     public string? Message { get; set; }
 
     [DataMember]
-    public bool StopProcessing { get; }
+    public bool StopProcessing { get; set; }
 }

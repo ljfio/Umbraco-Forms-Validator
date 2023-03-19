@@ -15,24 +15,12 @@ public sealed class FormValidationSettingSchema
     [Column(nameof(Id))]
     public Guid Id { get; set; }
     
-    [Column(nameof(FormId))]
-    public Guid FormId { get; set; }
-    
-    [Column(nameof(RuleId))]
-    public Guid RuleId { get; set; }
-
-    [Column(nameof(Message))]
-    public string? Message { get; set; }
-
-    [Column(nameof(StopProcessing))]
-    public bool StopProcessing { get; set; }
-    
     [Column(nameof(Type))] 
-    public string? Type { get; set; }
+    public string Type { get; set; }
     
     [Column(nameof(Properties))]
     [SpecialDbType(SpecialDbTypes.NVARCHARMAX)]
-    public string? Properties { get; set; }
+    public string Properties { get; set; }
 
     [VersionColumn(nameof(RowVersion), VersionColumnType.RowVersion)]
     public byte[] RowVersion { get; set; } = Array.Empty<byte>();
