@@ -4,7 +4,7 @@
 using NPoco;
 using Umbraco.Cms.Infrastructure.Persistence.DatabaseAnnotations;
 
-namespace Our.Umbraco.Forms.Validator.Schema;
+namespace Our.Umbraco.Forms.Validator.Infrastructure;
 
 [TableName("FormValidationSetting")]
 [PrimaryKey(nameof(Id), AutoIncrement = true)]
@@ -26,6 +26,9 @@ public sealed class FormValidationSettingSchema
 
     [Column(nameof(StopProcessing))]
     public bool StopProcessing { get; set; }
+    
+    [Column(nameof(Type))] 
+    public string? Type { get; set; }
     
     [Column(nameof(Properties))]
     [SpecialDbType(SpecialDbTypes.NVARCHARMAX)]

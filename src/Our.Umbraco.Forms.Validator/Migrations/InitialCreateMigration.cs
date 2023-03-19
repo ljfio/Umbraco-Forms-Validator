@@ -1,7 +1,7 @@
 // Copyright 2023 Luke Fisher
 // SPDX-License-Identifier: Apache-2.0
 
-using Our.Umbraco.Forms.Validator.Schema;
+using Our.Umbraco.Forms.Validator.Infrastructure;
 using Umbraco.Cms.Infrastructure.Migrations;
 
 namespace Our.Umbraco.Forms.Validator.Migrations;
