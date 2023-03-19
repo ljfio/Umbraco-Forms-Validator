@@ -4,9 +4,9 @@
 using Our.Umbraco.Forms.Validator.Core.Settings;
 using Umbraco.Forms.Core.Models;
 
-namespace Our.Umbraco.Forms.Validator.Core.Cache;
+namespace Our.Umbraco.Forms.Validator.Core.Services;
 
-public interface IFormValidationRuleCache
+public interface IFormValidationSettingService
 {
     void Add(IFormValidationSetting setting);
     IEnumerable<IFormValidationRuleWithSetting> RulesFor(Form form);

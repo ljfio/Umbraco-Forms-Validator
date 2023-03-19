@@ -2,21 +2,21 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using System.Collections.ObjectModel;
-using Our.Umbraco.Forms.Validator.Core.Cache;
 using Our.Umbraco.Forms.Validator.Core.Rules;
+using Our.Umbraco.Forms.Validator.Core.Services;
 using Our.Umbraco.Forms.Validator.Core.Settings;
 using Our.Umbraco.Forms.Validator.Settings;
 using Umbraco.Forms.Core.Models;
 
-namespace Our.Umbraco.Forms.Validator.Cache;
+namespace Our.Umbraco.Forms.Validator.Services;
 
-public class FormValidationRuleCache : IFormValidationRuleCache
+public class FormValidationSettingService : IFormValidationSettingService
 {
     private FormValidationRuleCollection _validRules;
 
     private IDictionary<Guid, IList<IFormValidationRuleWithSetting>> _rulesCache;
 
-    public FormValidationRuleCache(FormValidationRuleCollection rules)
+    public FormValidationSettingService(FormValidationRuleCollection rules)
     {
         _validRules = rules;
         _rulesCache = new Dictionary<Guid, IList<IFormValidationRuleWithSetting>>();

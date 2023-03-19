@@ -4,7 +4,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Our.Umbraco.Forms.Validator.Core;
-using Our.Umbraco.Forms.Validator.Core.Cache;
 using Our.Umbraco.Forms.Validator.Core.Services;
 using Umbraco.Forms.Core.Models;
 using FormValueProvider = Our.Umbraco.Forms.Validator.Core.FormValueProvider;
@@ -13,11 +12,11 @@ namespace Our.Umbraco.Forms.Validator.Services;
 
 public sealed class FormValidatorService : IFormValidatorService
 {
-    private readonly IFormValidationRuleCache _ruleCache;
+    private readonly IFormValidationSettingService _settingService;
 
-    public FormValidatorService(IFormValidationRuleCache ruleCache)
+    public FormValidatorService(IFormValidationSettingService settingService)
     {
-        _ruleCache = ruleCache;
+        _settingService = settingService;
     }
 
     public void Validate(Form form, HttpContext context, ModelStateDictionary modelState)
@@ -25,7 +24,7 @@ public sealed class FormValidatorService : IFormValidatorService
         var collector = new FormValidationCollector();
         var provider = new FormValueProvider(form, context.Request);
         
-        var rules = _ruleCache.RulesFor(form);
+        var rules = _settingService.RulesFor(form);
 
         foreach (var rule in rules)
         {

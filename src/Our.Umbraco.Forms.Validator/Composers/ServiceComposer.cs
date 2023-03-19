@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using Microsoft.Extensions.DependencyInjection;
-using Our.Umbraco.Forms.Validator.Cache;
-using Our.Umbraco.Forms.Validator.Core.Cache;
 using Our.Umbraco.Forms.Validator.Core.Services;
 using Our.Umbraco.Forms.Validator.Services;
 using Umbraco.Cms.Core.Composing;
@@ -16,7 +14,7 @@ public class ServiceComposer : IComposer
     public void Compose(IUmbracoBuilder builder)
     {
         builder.Services
-            .AddSingleton<IFormValidationRuleCache, FormValidationRuleCache>()
+            .AddSingleton<IFormValidationSettingService, FormValidationSettingService>()
             .AddSingleton<IFormValidatorService, FormValidatorService>();
     }
 }
