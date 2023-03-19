@@ -9,15 +9,15 @@ namespace Our.Umbraco.Forms.Validator.Notifications.Handlers;
 
 public class FormValidateNotificationHandler : INotificationHandler<FormValidateNotification>
 {
-    private readonly IFormValidatorService _formValidatorService;
+    private readonly IFormValidatorService _validatorService;
 
-    public FormValidateNotificationHandler(IFormValidatorService formValidatorService)
+    public FormValidateNotificationHandler(IFormValidatorService validatorService)
     {
-        _formValidatorService = formValidatorService;
+        _validatorService = validatorService;
     }
 
     public void Handle(FormValidateNotification notification)
     {
-        _formValidatorService.Validate(notification.Form, notification.Context, notification.ModelState);
+        _validatorService.Validate(notification.Form, notification.Context, notification.ModelState);
     }
 }

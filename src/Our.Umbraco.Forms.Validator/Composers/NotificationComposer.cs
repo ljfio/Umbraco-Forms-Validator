@@ -13,7 +13,9 @@ public class NotificationComposer : IComposer
 {
     public void Compose(IUmbracoBuilder builder)
     {
-        builder.AddNotificationHandler<FormValidateNotification, FormValidateNotificationHandler>()
-            .AddNotificationHandler<UmbracoApplicationStartingNotification, MigrateOnStartingNotificationHandler>();
+        builder
+            .AddNotificationHandler<FormValidateNotification, FormValidateNotificationHandler>()
+            .AddNotificationHandler<UmbracoApplicationStartingNotification, MigrateOnStartingNotificationHandler>()
+            .AddNotificationHandler<UmbracoApplicationStartedNotification, LoadSettingsOnStartedHandler>();
     }
 }
