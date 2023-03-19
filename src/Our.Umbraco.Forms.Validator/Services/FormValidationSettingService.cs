@@ -10,37 +10,36 @@ using Umbraco.Forms.Core.Models;
 
 namespace Our.Umbraco.Forms.Validator.Services;
 
-public class FormValidationSettingService : IFormValidationSettingService
+public sealed class FormValidationSettingService : IFormValidationSettingService
 {
-    private FormValidationRuleCollection _validRules;
-
-    private IDictionary<Guid, IList<IFormValidationRuleWithSetting>> _rulesCache;
+    private readonly FormValidationRuleCollection _rules;
+    private readonly IDictionary<Guid, IList<IFormValidationRuleWithSetting>> _cache;
 
     public FormValidationSettingService(FormValidationRuleCollection rules)
     {
-        _validRules = rules;
-        _rulesCache = new Dictionary<Guid, IList<IFormValidationRuleWithSetting>>();
+        _rules = rules;
+        _cache = new Dictionary<Guid, IList<IFormValidationRuleWithSetting>>();
     }
 
     public void Add(IFormValidationSetting setting)
     {
-        var rule = _validRules[setting.RuleId];
-        
-        if (!_rulesCache.ContainsKey(setting.FormId))
+        var rule = _rules[setting.RuleId];
+
+        if (!_cache.ContainsKey(setting.FormId))
         {
-            _rulesCache.Add(setting.FormId, new List<IFormValidationRuleWithSetting>());
+            _cache.Add(setting.FormId, new List<IFormValidationRuleWithSetting>());
         }
 
-        var rules = _rulesCache[setting.FormId];
-        
+        var rules = _cache[setting.FormId];
+
         rules.Add(new FormValidationRuleWithSetting(rule, setting));
     }
 
     public IEnumerable<IFormValidationRuleWithSetting> RulesFor(Form form)
     {
-        if (_rulesCache.ContainsKey(form.Id))
+        if (_cache.ContainsKey(form.Id))
         {
-            return new ReadOnlyCollection<IFormValidationRuleWithSetting>(_rulesCache[form.Id]);
+            return new ReadOnlyCollection<IFormValidationRuleWithSetting>(_cache[form.Id]);
         }
 
         return Enumerable.Empty<IFormValidationRuleWithSetting>();
