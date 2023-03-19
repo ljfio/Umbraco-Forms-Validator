@@ -45,7 +45,7 @@ public class FormValidationSettingRepository
 
         scope.Complete();
 
-        return _settingFactory.Create(row.Type, row.Properties);
+        return _settingFactory.Create(row.Id, row.Type, row.Properties);
     }
 
     public IFormValidationSetting Load(Guid id)
@@ -56,7 +56,7 @@ public class FormValidationSettingRepository
 
         scope.Complete();
 
-        return _settingFactory.Create(row.Type, row.Properties);
+        return _settingFactory.Create(row.Id, row.Type, row.Properties);
     }
 
     public IEnumerable<IFormValidationSetting> Load()
@@ -71,7 +71,7 @@ public class FormValidationSettingRepository
 
         foreach (var row in rows)
         {
-            list.Add(_settingFactory.Create(row.Type, row.Properties));
+            list.Add(_settingFactory.Create(row.Id, row.Type, row.Properties));
         }
 
         return list;

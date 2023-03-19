@@ -16,12 +16,15 @@ public class FormValidationSettingFactory : IFormValidationSettingFactory
         _types = types;
     }
 
-    public IFormValidationSetting Create(string type, string properties)
+    public IFormValidationSetting Create(Guid id, string type, string properties)
     {
         var validType = _types[type];
 
         if (JsonSerializer.Deserialize(properties, validType) is not IFormValidationSetting setting)
             throw new InvalidOperationException();
+
+        var property = validType.GetProperty(nameof(IFormValidationSetting.Id));
+        property?.SetValue(setting, id);
 
         return setting;
     }
