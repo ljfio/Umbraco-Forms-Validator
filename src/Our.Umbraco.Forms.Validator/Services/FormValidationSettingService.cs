@@ -40,9 +40,9 @@ public sealed class FormValidationSettingService : IFormValidationSettingService
 
     public void Add(IFormValidationSetting setting)
     {
-        _repository.Save(setting);
+        var saved = _repository.Save(setting);
         
-        AddToCache(setting);
+        AddToCache(saved);
     }
 
     public IEnumerable<IFormValidationRuleWithSetting> RulesFor(Form form)
