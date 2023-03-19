@@ -10,4 +10,5 @@ public interface IFormValidationSettingService
 {
     void Add(IFormValidationSetting setting);
     IEnumerable<IFormValidationRuleWithSetting> RulesFor(Form form);
+    void Load();
 }

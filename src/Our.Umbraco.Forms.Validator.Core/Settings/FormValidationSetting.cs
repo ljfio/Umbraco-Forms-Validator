@@ -9,7 +9,6 @@ namespace Our.Umbraco.Forms.Validator.Core.Settings;
 [DataContract]
 public class FormValidationSetting : IFormValidationSetting
 {
-    [DataMember]
     public Guid Id { get; set; }
 
     [DataMember]
