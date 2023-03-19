@@ -12,7 +12,7 @@ public class SettingsComposer : IComposer
 {
     public void Compose(IUmbracoBuilder builder)
     {
-        builder.FormValidationSettings()
+        builder.FormValidationSettingTypes()
             .Add<FormValidationSetting>()
             .Add<FieldValidationSetting>()
             .Add<FieldComparisonSetting>();

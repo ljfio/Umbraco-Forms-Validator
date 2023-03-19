@@ -12,6 +12,6 @@ public static class UmbracoBuilderExtensions
     public static FormValidationRuleCollectionBuilder FormValidationRules(this IUmbracoBuilder builder) =>
         builder.WithCollectionBuilder<FormValidationRuleCollectionBuilder>();
 
-    public static FormValidationSettingCollectionBuilder FormValidationSettings(this IUmbracoBuilder builder) =>
-        builder.WithCollectionBuilder<FormValidationSettingCollectionBuilder>();
+    public static FormValidationSettingTypeCollectionBuilder FormValidationSettingTypes(this IUmbracoBuilder builder) =>
+        builder.WithCollectionBuilder<FormValidationSettingTypeCollectionBuilder>();
 }
