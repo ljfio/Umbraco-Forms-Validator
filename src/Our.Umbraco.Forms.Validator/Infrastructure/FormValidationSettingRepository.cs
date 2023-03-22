@@ -5,11 +5,10 @@ using System.Text.Json;
 using Our.Umbraco.Forms.Validator.Core.Services;
 using Our.Umbraco.Forms.Validator.Core.Settings;
 using Umbraco.Cms.Infrastructure.Scoping;
-using Umbraco.Extensions;
 
 namespace Our.Umbraco.Forms.Validator.Infrastructure;
 
-public class FormValidationSettingRepository
+public class FormValidationSettingRepository :  IFormValidationSettingRepository
 {
     private readonly IScopeProvider _scopeProvider;
     private readonly IFormValidationSettingFactory _settingFactory;

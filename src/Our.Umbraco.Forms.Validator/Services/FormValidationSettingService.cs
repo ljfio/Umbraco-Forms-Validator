@@ -14,13 +14,13 @@ namespace Our.Umbraco.Forms.Validator.Services;
 public sealed class FormValidationSettingService : IFormValidationSettingService
 {
     private readonly FormValidationRuleCollection _rules;
-    private readonly FormValidationSettingRepository _repository;
+    private readonly IFormValidationSettingRepository _repository;
 
     private readonly IDictionary<Guid, IList<IFormValidationRuleWithSetting>> _cache;
 
     public FormValidationSettingService(
         FormValidationRuleCollection rules,
-        FormValidationSettingRepository repository)
+        IFormValidationSettingRepository repository)
     {
         _rules = rules;
         _repository = repository;

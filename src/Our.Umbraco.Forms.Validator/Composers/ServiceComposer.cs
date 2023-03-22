@@ -3,6 +3,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Our.Umbraco.Forms.Validator.Core.Services;
+using Our.Umbraco.Forms.Validator.Infrastructure;
 using Our.Umbraco.Forms.Validator.Services;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
@@ -15,6 +16,7 @@ public class ServiceComposer : IComposer
     {
         builder.Services
             .AddSingleton<IFormValidationSettingFactory, FormValidationSettingFactory>()
+            .AddSingleton<IFormValidationSettingRepository, FormValidationSettingRepository>()
             .AddSingleton<IFormValidationSettingService, FormValidationSettingService>()
             .AddSingleton<IFormValidatorService, FormValidatorService>();
     }
