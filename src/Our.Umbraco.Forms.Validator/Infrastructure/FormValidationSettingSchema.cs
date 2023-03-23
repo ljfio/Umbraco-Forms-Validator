@@ -6,7 +6,7 @@ using Umbraco.Cms.Infrastructure.Persistence.DatabaseAnnotations;
 
 namespace Our.Umbraco.Forms.Validator.Infrastructure;
 
-[TableName("FormValidationSetting")]
+[TableName(Constants.SettingsTableName)]
 [PrimaryKey(nameof(Id), AutoIncrement = true)]
 [ExplicitColumns]
 public sealed class FormValidationSettingSchema

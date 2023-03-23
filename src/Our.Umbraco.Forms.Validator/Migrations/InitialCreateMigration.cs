@@ -1,6 +1,7 @@
 // Copyright 2023 Luke Fisher
 // SPDX-License-Identifier: Apache-2.0
 
+using Microsoft.Extensions.Logging;
 using Our.Umbraco.Forms.Validator.Infrastructure;
 using Umbraco.Cms.Infrastructure.Migrations;
 
@@ -14,9 +15,16 @@ public sealed class InitialCreateMigration : MigrationBase
 
     protected override void Migrate()
     {
-        if (!TableExists("FormValidationSetting"))
+        Logger.LogDebug("Running migration {name}", nameof(InitialCreateMigration));
+
+        if (TableExists(Constants.SettingsTableName))
         {
-            Create.Table<FormValidationSettingSchema>().Do();
+            Logger.LogDebug("Table {name} already exists", Constants.SettingsTableName);
+            return;
         }
+
+        Create.Table<FormValidationSettingSchema>().Do();
+        
+        Logger.LogDebug("Table {name} created", Constants.SettingsTableName);
     }
 }

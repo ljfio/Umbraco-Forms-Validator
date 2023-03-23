@@ -1,6 +1,7 @@
 // Copyright 2023 Luke Fisher
 // SPDX-License-Identifier: Apache-2.0
 
+using Microsoft.Extensions.Logging;
 using Our.Umbraco.Forms.Validator.Core.Extensions;
 using Umbraco.Cms.Core.Events;
 using Umbraco.Cms.Core.Notifications;
@@ -17,6 +18,7 @@ namespace Our.Umbraco.Forms.Validator.Notifications.Handlers;
 
 public class MigrateOnStartingNotificationHandler : INotificationHandler<UmbracoApplicationStartingNotification>
 {
+    private readonly ILogger<MigrateOnStartingNotificationHandler> _logger;
     private readonly IRuntimeState _runtimeState;
     private readonly IServerRoleAccessor _serverRoleAccessor;
     private readonly IScopeProvider _scopeProvider;
@@ -24,12 +26,14 @@ public class MigrateOnStartingNotificationHandler : INotificationHandler<Umbraco
     private readonly IKeyValueService _keyValueService;
 
     public MigrateOnStartingNotificationHandler(
+        ILogger<MigrateOnStartingNotificationHandler> logger,
         IRuntimeState runtimeState,
         IServerRoleAccessor serverRoleAccessor,
         IScopeProvider scopeProvider,
         IMigrationPlanExecutor migrationPlanExecutor,
         IKeyValueService keyValueService)
     {
+        _logger = logger;
         _runtimeState = runtimeState;
         _serverRoleAccessor = serverRoleAccessor;
         _scopeProvider = scopeProvider;
@@ -40,10 +44,16 @@ public class MigrateOnStartingNotificationHandler : INotificationHandler<Umbraco
     public void Handle(UmbracoApplicationStartingNotification notification)
     {
         if (_runtimeState.Level < RuntimeLevel.Run)
+        {
+            _logger.LogDebug("Unable to handle notification at runtime level {level}", _runtimeState.Level);
             return;
+        }
 
         if (!_serverRoleAccessor.CurrentServerRole.IsAny(ServerRole.Single, ServerRole.SchedulingPublisher))
+        {
+            _logger.LogDebug("Unable to handle notification in server role {role}", _serverRoleAccessor.CurrentServerRole);
             return;
+        }
 
         var migrationPlan = new MigrationPlan("FormsValidator");
 
