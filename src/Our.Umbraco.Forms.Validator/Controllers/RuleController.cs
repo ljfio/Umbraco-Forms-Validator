@@ -20,7 +20,6 @@ public class RuleController : UmbracoAuthorizedApiController
     }
 
     [HttpGet]
-    [Route("")]
     public IActionResult Read()
     {
         var rules = _ruleCollection
