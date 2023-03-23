@@ -17,14 +17,14 @@ public sealed class InitialCreateMigration : MigrationBase
     {
         Logger.LogDebug("Running migration {name}", nameof(InitialCreateMigration));
 
-        if (TableExists(Constants.SettingsTableName))
+        if (TableExists(FormValidationSettingSchema.TableName))
         {
-            Logger.LogDebug("Table {name} already exists", Constants.SettingsTableName);
+            Logger.LogDebug("Table {name} already exists", FormValidationSettingSchema.TableName);
             return;
         }
 
         Create.Table<FormValidationSettingSchema>().Do();
         
-        Logger.LogDebug("Table {name} created", Constants.SettingsTableName);
+        Logger.LogDebug("Table {name} created", FormValidationSettingSchema.TableName);
     }
 }

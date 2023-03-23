@@ -6,11 +6,13 @@ using Umbraco.Cms.Infrastructure.Persistence.DatabaseAnnotations;
 
 namespace Our.Umbraco.Forms.Validator.Infrastructure;
 
-[TableName(Constants.SettingsTableName)]
+[TableName(TableName)]
 [PrimaryKey(nameof(Id), AutoIncrement = true)]
 [ExplicitColumns]
 public sealed class FormValidationSettingSchema
 {
+    public const string TableName = "FormValidationSetting";
+    
     [PrimaryKeyColumn(AutoIncrement = true)]
     [Column(nameof(Id))]
     public Guid Id { get; set; }
