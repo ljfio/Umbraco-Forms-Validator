@@ -8,7 +8,7 @@ using Umbraco.Cms.Infrastructure.Scoping;
 
 namespace Our.Umbraco.Forms.Validator.Infrastructure;
 
-public class FormValidationSettingRepository :  IFormValidationSettingRepository
+public sealed class FormValidationSettingRepository :  IFormValidationSettingRepository
 {
     private readonly IScopeProvider _scopeProvider;
     private readonly IFormValidationSettingFactory _settingFactory;
@@ -24,13 +24,16 @@ public class FormValidationSettingRepository :  IFormValidationSettingRepository
     public IFormValidationSetting Save(IFormValidationSetting setting)
     {
         using var scope = _scopeProvider.CreateScope();
-
-        var row = scope.Database.SingleOrDefaultById<FormValidationSettingSchema>(setting.Id);
+        
+        var row = scope.Database.Query<FormValidationSettingSchema>()
+            .Where(s => s.Key == setting.Id)
+            .SingleOrDefault();
 
         if (row is null)
         {
             row = new FormValidationSettingSchema
             {
+                Key = Guid.NewGuid(),
                 Type = setting.GetType().Name,
                 Properties = JsonSerializer.Serialize(setting),
             };
@@ -44,7 +47,7 @@ public class FormValidationSettingRepository :  IFormValidationSettingRepository
 
         scope.Complete();
 
-        return _settingFactory.Create(row.Id, row.Type, row.Properties);
+        return _settingFactory.Create(row.Key, row.Type, row.Properties);
     }
 
     public IFormValidationSetting Load(Guid id)
@@ -55,7 +58,7 @@ public class FormValidationSettingRepository :  IFormValidationSettingRepository
 
         scope.Complete();
 
-        return _settingFactory.Create(row.Id, row.Type, row.Properties);
+        return _settingFactory.Create(row.Key, row.Type, row.Properties);
     }
 
     public IEnumerable<IFormValidationSetting> Load()
@@ -70,7 +73,7 @@ public class FormValidationSettingRepository :  IFormValidationSettingRepository
 
         foreach (var row in rows)
         {
-            list.Add(_settingFactory.Create(row.Id, row.Type, row.Properties));
+            list.Add(_settingFactory.Create(row.Key, row.Type, row.Properties));
         }
 
         return list;

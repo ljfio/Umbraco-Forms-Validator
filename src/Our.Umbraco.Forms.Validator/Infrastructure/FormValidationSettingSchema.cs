@@ -15,7 +15,11 @@ public sealed class FormValidationSettingSchema
     
     [PrimaryKeyColumn(AutoIncrement = true)]
     [Column(nameof(Id))]
-    public Guid Id { get; set; }
+    public int Id { get; set; }
+    
+    [Column(nameof(Key))]
+    [Index(IndexTypes.Clustered)]
+    public Guid Key { get; set; }
     
     [Column(nameof(Type))] 
     public string Type { get; set; }
