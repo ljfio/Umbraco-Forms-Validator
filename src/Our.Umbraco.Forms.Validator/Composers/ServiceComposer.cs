@@ -18,6 +18,11 @@ public class ServiceComposer : IComposer
             .AddSingleton<IFormValidationSettingFactory, FormValidationSettingFactory>()
             .AddSingleton<IFormValidationSettingRepository, FormValidationSettingRepository>()
             .AddSingleton<IFormValidationSettingService, FormValidationSettingService>()
-            .AddSingleton<IFormValidatorService, FormValidatorService>();
+            .AddSingleton<IFormValidatorServiceFactory, FormValidatorServiceFactory>()
+            .AddSingleton<IFormValidatorService>(provider =>
+            {
+                var factory = provider.GetRequiredService<IFormValidatorServiceFactory>();
+                return factory.Create();
+            });
     }
 }
