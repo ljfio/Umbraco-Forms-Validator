@@ -11,6 +11,8 @@ public class PluginManifestFilter : IManifestFilter
     {
         manifests.Add(new PackageManifest
         {
+            PackageName = Package.Name,
+            Version = Package.Version,
             Scripts = new[]
             {
                 "~/App_Plugins/FormsValidator/js/formsvalidatorsettings.controller.js"
