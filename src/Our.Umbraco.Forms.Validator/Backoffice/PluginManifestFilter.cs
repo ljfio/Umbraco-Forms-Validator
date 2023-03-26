@@ -15,7 +15,7 @@ public class PluginManifestFilter : IManifestFilter
             Version = Package.Version,
             Scripts = new[]
             {
-                "~/App_Plugins/FormsValidator/js/formsvalidatorsettings.controller.js"
+                "/App_Plugins/FormsValidator/js/formsvalidatorsettings.controller.js"
             }
         });
     }

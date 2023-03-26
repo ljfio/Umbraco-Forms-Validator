@@ -18,7 +18,7 @@ public class SettingContentApp : IContentAppFactory
                 Alias = "formsValidatorSettingContentApp",
                 Name = "Validation",
                 Icon = "icon-checkbox",
-                View = "~/App_Plugins/FormsValidator/views/settingscontentapp.html",
+                View = "/App_Plugins/FormsValidator/views/settingscontentapp.html",
                 Weight = 0,
             };
         }
