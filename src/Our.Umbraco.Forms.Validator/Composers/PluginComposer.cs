@@ -11,7 +11,10 @@ public class PluginComposer: IComposer
 {
     public void Compose(IUmbracoBuilder builder)
     {
-        builder.ContentApps().Append<SettingContentApp>();
-        builder.ManifestFilters().Append<PluginManifestFilter>();
+        builder.ContentApps()
+            .Append<SettingContentApp>();
+        
+        builder.ManifestFilters()
+            .Append<PluginManifestFilter>();
     }
 }

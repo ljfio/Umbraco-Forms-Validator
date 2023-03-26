@@ -10,6 +10,8 @@ using Umbraco.Cms.Core.DependencyInjection;
 
 namespace Our.Umbraco.Forms.Validator.Composers;
 
+[ComposeAfter(typeof(RulesComposer))]
+[ComposeAfter(typeof(SettingsComposer))]
 public class ServiceComposer : IComposer
 {
     public void Compose(IUmbracoBuilder builder)
