@@ -29,7 +29,6 @@
 
     <ItemGroup>
       <Folder Include="Attributes" />
-      <Folder Include="Controllers" />
     </ItemGroup>
 
     <ItemGroup>
@@ -44,7 +43,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="App_Plugins\Our.Umbraco.Forms.Validator\**" ExcludeFromSingleFile="true" CopyToPublishDirectory="Always" />
+      <Content Include="App_Plugins\FormsValidator\**" ExcludeFromSingleFile="true" CopyToPublishDirectory="Always" />
       <None Include="buildTransitive\**" Pack="true" PackagePath="buildTransitive" />
     </ItemGroup>
 
