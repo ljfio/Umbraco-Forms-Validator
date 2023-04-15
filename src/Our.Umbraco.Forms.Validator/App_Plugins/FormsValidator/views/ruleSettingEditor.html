@@ -15,17 +15,23 @@
                             label="Rule"
                             description="The rule to apply"
                             required>
-
                         <umb-button
-                                action="vm.selectRule()"
+                                ng-if="!vm.selectedRule"
+                                action="vm.openRulePicker()"
                                 type="button"
                                 button-style="[placeholder,block]"
                                 label="Select rule">
                         </umb-button>
 
                         <umb-node-preview
-                                name="selectedRule.name"
-                                description="selectedRule.description">
+                                ng-if="vm.selectedRule"
+                                allow-edit="true"
+                                allow-remove="true"
+                                on-edit="vm.openRulePicker()"
+                                on-remove="vm.removeSelectedRule()"
+                                name="vm.selectedRule.name"
+                                description="vm.selectedRule.description"
+                                single>
                         </umb-node-preview>
                     </umb-control-group>
 
@@ -33,17 +39,42 @@
                             label="Form field"
                             description="The field to apply validation rule to"
                             required>
-                        <select class="-full-width-input">
-                            <option ng-repeat="field in vm.fields">
-                                {{ field }}
-                            </option>
-                        </select>
+                        <umb-node-preview
+                                ng-if="vm.selectedField"
+                                allow-remove="true"
+                                on-remove="vm.removeField()"
+                                name="vm.selectedField.alias"
+                                description="vm.selectedField.caption"
+                                single>
+                        </umb-node-preview>
+
+                        <div style="position: relative;">
+                            <umb-button
+                                    ng-if="!vm.selectedField"
+                                    action="vm.openFieldSelector()"
+                                    type="button"
+                                    button-style="[placeholder,block]"
+                                    label="Select field">
+                            </umb-button>
+
+                            <umb-dropdown ng-if="vm.fieldSelectorOpen"
+                                          on-close="vm.openFieldSelector()"
+                                          umb-keyboard-list>
+                                <umb-dropdown-item
+                                        ng-repeat="field in vm.fields">
+                                    <button class="btn-reset" 
+                                            ng-click="vm.selectField(field)">
+                                        {{ field.alias }}
+                                    </button>
+                                </umb-dropdown-item>
+                            </umb-dropdown>
+                        </div>
                     </umb-control-group>
 
                     <umb-control-group
                             label="Message"
                             description="Custom validation error message">
-                        <input type="text" class="-full-width-input" />
+                        <input type="text" class="-full-width-input"/>
                     </umb-control-group>
 
                     <umb-control-group

@@ -1,0 +1,42 @@
+<div ng-controller="FormsValidator.RulePicker as vm">
+    <umb-editor-view>
+        <umb-editor-header
+                name="model.title"
+                name-locked="true"
+                hide-alias="true"
+                hide-icon="true"
+                hide-description="true">
+        </umb-editor-header>
+
+        <umb-editor-container>
+            <umb-box>
+                <umb-box-content>
+                    <ul class="umb-card-grid -four-in-row">
+                        <li ng-repeat="rule in vm.rules">
+                            <button
+                                    type="button"
+                                    title="{{ rule.description }}"
+                                    class="btn-reset umb-card-grid-item"
+                                    ng-click="vm.selectRule(rule)">
+                                <span>
+                                    {{ rule.name }}
+                                </span>
+                            </button>
+                        </li>
+                    </ul>
+                </umb-box-content>
+            </umb-box>
+        </umb-editor-container>
+
+        <umb-editor-footer>
+            <umb-editor-footer-content-right>
+                <umb-button
+                        action="vm.close()"
+                        type="button"
+                        button-style="link"
+                        label="Close">
+                </umb-button>
+            </umb-editor-footer-content-right>
+        </umb-editor-footer>
+    </umb-editor-view>
+</div>

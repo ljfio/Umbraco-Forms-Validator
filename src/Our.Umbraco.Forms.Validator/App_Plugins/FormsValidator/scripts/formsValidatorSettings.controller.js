@@ -1,9 +1,9 @@
 (function () {
     "use strict";
-    
-    function FormsValidatorSettingsController($routeParams, formResource, formsValidatorResource, editorService) {
-        var vm = this;
 
+    function FormsValidatorSettingsController($routeParams, $scope, formService, formsValidatorResource, editorService) {
+        var vm = this;
+        
         vm.settings = [];
 
         vm.settingsProperties = [
@@ -19,7 +19,7 @@
 
         vm.newSetting = function () {
             var options = {
-                title: "New Validaton Rule",
+                title: "Rule settings",
                 size: "small",
                 view: "/App_Plugins/FormsValidator/views/ruleSettingEditor.html",
                 submit: function (model) {
@@ -38,5 +38,5 @@
     }
 
     angular.module("umbraco")
-        .controller("FormsValidator.SettingsContentApp", FormsValidatorSettingsController);
+        .controller("FormsValidator.SettingsContentApp", FormsValidatorSettingsController)
 })();
