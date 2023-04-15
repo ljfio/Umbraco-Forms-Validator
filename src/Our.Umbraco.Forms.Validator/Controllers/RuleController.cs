@@ -10,7 +10,7 @@ using Umbraco.Cms.Web.Common.Attributes;
 namespace Our.Umbraco.Forms.Validator.Controllers;
 
 [PluginController("FormsValidator")]
-public class RuleController : UmbracoAuthorizedApiController
+public class RuleController : UmbracoAuthorizedJsonController
 {
     private readonly FormValidationRuleCollection _ruleCollection;
 
