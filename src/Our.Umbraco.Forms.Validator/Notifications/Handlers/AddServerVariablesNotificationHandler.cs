@@ -31,12 +31,17 @@ public class AddServerVariablesNotificationHandler : INotificationHandler<Server
     {
         var urlHelper = _urlHelperFactory.GetUrlHelper(_actionContextAccessor.ActionContext);
 
-        notification.ServerVariables.Add("umbracoUrls", new Dictionary<string, object>()
+        if (notification.ServerVariables.TryGetValue("umbracoUrls", out var value) && 
+            value is Dictionary<string, object> dictionary)
         {
+            string? baseUrl =
+                urlHelper.GetUmbracoApiServiceBaseUrl<RuleController>(_umbracoApiControllers,
+                    method => method.GetAll());
+
+            if (!string.IsNullOrEmpty(baseUrl))
             {
-                "formsValidatorRulesApiBaseUrl",
-                urlHelper.GetUmbracoApiServiceBaseUrl<RuleController>(_umbracoApiControllers, method => method.GetAll())
-            },
-        });
+                dictionary.Add("formsValidatorRulesApiBaseUrl", baseUrl);
+            }
+        }
     }
 }

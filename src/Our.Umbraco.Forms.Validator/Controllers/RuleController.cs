@@ -20,7 +20,7 @@ public class RuleController : UmbracoAuthorizedApiController
     }
 
     [HttpGet]
-    public IActionResult Read()
+    public IActionResult GetAll()
     {
         var rules = _ruleCollection
             .Select(rule => new RuleModel
