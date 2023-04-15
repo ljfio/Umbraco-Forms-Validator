@@ -1,7 +1,29 @@
 <div ng-controller="FormsValidator.SettingsContentApp as vm">
-    <umb-box>
-        <umb-box-header title="Validation Settings"></umb-box-header>
-        <umb-box-content>
-        </umb-box-content>
-    </umb-box>
+    <umb-editor-sub-header>
+        <umb-editor-sub-header-content-right>
+            <umb-button
+                    ng-if="vm.selectedSetting"
+                    action="vm.editSetting()"
+                    type="button"
+                    label="Edit"
+                    icon="icon-pencil"
+                    button-style="outline">
+            </umb-button>
+
+            <umb-button
+                    action="vm.newSetting()"
+                    type="button"
+                    label="New"
+                    icon="icon-add"
+                    button-style="outline">
+            </umb-button>
+        </umb-editor-sub-header-content-right>
+    </umb-editor-sub-header>
+    
+    <umb-content-grid
+            content="vm.settings"
+            content-properties="vm.settingsProperties"
+            on-click="vm.selectRule"
+            on-click-name="vm.clickRule">
+    </umb-content-grid>
 </div>

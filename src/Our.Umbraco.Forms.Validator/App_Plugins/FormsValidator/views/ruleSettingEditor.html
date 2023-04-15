@@ -1,0 +1,35 @@
+<div ng-controller="FormsValidator.SettingEditor as vm">
+    <umb-editor-view>
+        <umb-editor-header
+                name="model.title"
+                name-locked="true"
+                hide-alias="true"
+                hide-icon="true"
+                hide-description="true">
+        </umb-editor-header>
+        
+        <umb-editor-container>
+            <umb-box>
+                <umb-box-content>
+                </umb-box-content>
+            </umb-box>
+        </umb-editor-container>
+        
+        <umb-editor-footer>
+            <umb-editor-footer-content-right>
+                <umb-button
+                        action="vm.submit()"
+                        type="button"
+                        button-style="primary"
+                        label="Submit">
+                </umb-button>
+
+                <umb-button
+                        action="vm.close()"
+                        type="button"
+                        label="Cancel">
+                </umb-button>
+            </umb-editor-footer-content-right>
+        </umb-editor-footer>
+    </umb-editor-view>
+</div>

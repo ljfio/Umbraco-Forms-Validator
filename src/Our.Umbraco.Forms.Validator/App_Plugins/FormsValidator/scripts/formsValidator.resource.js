@@ -1,6 +1,6 @@
-function formsValidatorRulesResource($q, $http, umbRequestHelper){
+function formsValidatorResource($q, $http, umbRequestHelper){
     return {
-        getAll: function () {
+        getAllRules: function () {
             return umbRequestHelper.resourcePromise(
                 $http.get(
                     umbRequestHelper.getApiUrl(
@@ -14,4 +14,4 @@ function formsValidatorRulesResource($q, $http, umbRequestHelper){
     }
 }
 
-angular.module('umbraco.resources').factory('formsValidatorRulesResource', formsValidatorRulesResource);
+angular.module('umbraco.resources').factory('formsValidatorResource', formsValidatorResource);
