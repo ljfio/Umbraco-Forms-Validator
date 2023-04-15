@@ -14,4 +14,5 @@ function formsValidatorResource($q, $http, umbRequestHelper){
     }
 }
 
-angular.module('umbraco.resources').factory('formsValidatorResource', formsValidatorResource);
+angular.module('umbraco.resources')
+    .factory('formsValidatorResource', formsValidatorResource);

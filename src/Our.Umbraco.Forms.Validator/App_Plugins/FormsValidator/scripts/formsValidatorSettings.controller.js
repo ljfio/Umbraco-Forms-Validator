@@ -1,4 +1,6 @@
 (function () {
+    "use strict";
+    
     function FormsValidatorSettingsController($routeParams, formResource, formsValidatorResource, editorService) {
         var vm = this;
 

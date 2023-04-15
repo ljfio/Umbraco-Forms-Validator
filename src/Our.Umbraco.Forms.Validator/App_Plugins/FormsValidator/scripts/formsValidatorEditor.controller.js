@@ -5,6 +5,12 @@
         var vm = this;
 
         vm.rules = [];
+        vm.selectedRule = {};
+        
+        vm.fields = [];
+        vm.selectedField = "";
+        
+        vm.stopProcessing = false;
         
         vm.submit = function () {
             if ($scope.model.submit) {
@@ -16,6 +22,14 @@
             if ($scope.model.close) {
                 $scope.model.close();
             }
+        }
+        
+        vm.selectRule = function (){
+            
+        }
+        
+        vm.toggleStopProcessing = function() {
+            vm.stopProcessing = !vm.stopProcessing;
         }
 
         formsValidatorResource.getAllRules()

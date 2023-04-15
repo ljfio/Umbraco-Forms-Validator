@@ -7,27 +7,70 @@
                 hide-icon="true"
                 hide-description="true">
         </umb-editor-header>
-        
+
         <umb-editor-container>
             <umb-box>
                 <umb-box-content>
+                    <umb-control-group
+                            label="Rule"
+                            description="The rule to apply"
+                            required>
+
+                        <umb-button
+                                action="vm.selectRule()"
+                                type="button"
+                                button-style="[placeholder,block]"
+                                label="Select rule">
+                        </umb-button>
+
+                        <umb-node-preview
+                                name="selectedRule.name"
+                                description="selectedRule.description">
+                        </umb-node-preview>
+                    </umb-control-group>
+
+                    <umb-control-group
+                            label="Form field"
+                            description="The field to apply validation rule to"
+                            required>
+                        <select class="-full-width-input">
+                            <option ng-repeat="field in vm.fields">
+                                {{ field }}
+                            </option>
+                        </select>
+                    </umb-control-group>
+
+                    <umb-control-group
+                            label="Message"
+                            description="Custom validation error message">
+                        <input type="text" class="-full-width-input" />
+                    </umb-control-group>
+
+                    <umb-control-group
+                            label="Stop processing"
+                            description="Toggle if you want to stop processing validation rules on failure">
+                        <umb-toggle
+                                checked="vm.stopProcessing"
+                                on-click="vm.toggleStopProcessing()"></umb-toggle>
+                    </umb-control-group>
                 </umb-box-content>
             </umb-box>
         </umb-editor-container>
-        
+
         <umb-editor-footer>
             <umb-editor-footer-content-right>
                 <umb-button
-                        action="vm.submit()"
+                        action="vm.close()"
                         type="button"
-                        button-style="primary"
-                        label="Submit">
+                        button-style="link"
+                        label="Close">
                 </umb-button>
 
                 <umb-button
-                        action="vm.close()"
+                        action="vm.submit()"
                         type="button"
-                        label="Cancel">
+                        button-style="success"
+                        label="Submit">
                 </umb-button>
             </umb-editor-footer-content-right>
         </umb-editor-footer>
