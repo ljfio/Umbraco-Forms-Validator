@@ -19,4 +19,7 @@ public class RuleModel
     
     [DataMember(Name = "icon")] 
     public string Icon { get; init; }
+    
+    [DataMember(Name = "settingFields")] 
+    public IEnumerable<SettingFieldModel> SettingFields { get; init; }
 }

@@ -7,6 +7,11 @@ namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
 public abstract class FieldValidationRule : FormValidationRule, IFormValidationRule
 {
+    protected FieldValidationRule()
+    {
+        SettingType = typeof(FieldValidationSetting);
+    }
+
     bool IFormValidationRule.Validate(FormValidationContext context)
     {
         if (context.Setting is not FieldValidationSetting setting)

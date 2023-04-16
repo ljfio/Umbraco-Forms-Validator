@@ -9,11 +9,14 @@ namespace Our.Umbraco.Forms.Validator.Core.Settings;
 public class FieldComparisonSetting : FormValidationSetting, IFieldValidationSetting
 {
     [DataMember]
+    [FormValidationSettingField("Field", Alias = "field", Type = FormValidationSettingFieldType.Field)]
     public Guid FieldId { get; set; }
-    
+
     [DataMember]
+    [FormValidationSettingField("Compare to field", Alias = "compareToField", Type = FormValidationSettingFieldType.Field)]
     public Guid CompareToFieldId { get; set; }
 
     [DataMember]
+    [FormValidationSettingField("Expected type", Alias = "expectedDataType", Type = FormValidationSettingFieldType.DataType)]
     public Guid ExpectedDataTypeId { get; set; }
 }

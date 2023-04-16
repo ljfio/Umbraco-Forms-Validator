@@ -7,6 +7,11 @@ namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
 public abstract class FieldComparisonRule : FormValidationRule, IFormValidationRule
 {
+    protected FieldComparisonRule()
+    {
+        SettingType = typeof(FieldComparisonSetting);
+    }
+
     bool IFormValidationRule.Validate(FormValidationContext context)
     {
         if (context.Setting is not FieldComparisonSetting setting)
