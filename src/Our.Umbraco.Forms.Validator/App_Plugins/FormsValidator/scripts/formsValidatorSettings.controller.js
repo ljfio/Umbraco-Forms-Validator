@@ -1,11 +1,11 @@
 (function () {
     "use strict";
 
-    function FormsValidatorSettingsController($routeParams, $scope, formService, formsValidatorResource, editorService) {
+    function FormsValidatorSettingsController($routeParams, $scope, formService, formsValidatorResource, editorService, eventsService) {
         var vm = this;
-        
-        vm.settings = [];
 
+        vm.settings = [];
+        
         vm.settingsProperties = [
             {
                 "alias": "field",
@@ -29,7 +29,7 @@
                         field: model.field.alias,
                         selected: false,
                     });
-                    
+
                     editorService.close();
                 },
                 close: function () {
@@ -42,8 +42,35 @@
 
         if (!$routeParams.create && $routeParams.id > 0) {
         }
+        
+        var unsubscribe = eventsService.on('umbracoForms.saved', function (event, args){
+        });
+
+        $scope.$on("$destroy", function () {
+            unsubscribe();
+        });
     }
 
     angular.module("umbraco")
-        .controller("FormsValidator.SettingsContentApp", FormsValidatorSettingsController)
+        .controller("FormsValidator.SettingsContentApp", FormsValidatorSettingsController);
+    
+    angular.module('umbraco.services')
+        .config(['$provide', function ($provide) {
+            return $provide.decorator('formResource', ['$delegate', 'eventsService', function ($delegate, eventsService) {
+                var original = $delegate.saveWithWorkflows;
+
+                $delegate.saveWithWorkflows = function (formWithWorkflows) {
+                    return original(formWithWorkflows)
+                        .then(function (response) {
+                            eventsService.emit('umbracoForms.saved', {
+                                id: response.data.id,
+                            });
+                            
+                            return response;
+                        });
+                };
+
+                return $delegate;
+            }]);
+        }]);
 })();
