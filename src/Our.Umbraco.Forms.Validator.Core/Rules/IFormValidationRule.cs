@@ -8,5 +8,6 @@ public interface IFormValidationRule
     Guid Id { get; }
     string Name { get; }
     string Description { get; }
+    string Icon { get; }
     bool Validate(FormValidationContext context);
 }

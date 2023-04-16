@@ -13,6 +13,7 @@ public class FieldGreaterThanOrEqual : FieldValidationRule
         Id = new Guid("4B7BFFF2-552A-45CF-91C9-A9686F001052");
         Name = "Greater Than or Equal to Value";
         Description = "Fails validation if this field is not greater than or equal to value";
+        Icon = "icon-greater-than-equal";
     }
 
     public override bool Validate(FormValue value, FormValidationContext context)

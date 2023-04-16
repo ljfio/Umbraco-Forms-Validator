@@ -13,6 +13,7 @@ public class FieldLessThan : FieldValidationRule
         Id = new Guid("163E3192-27EB-4B73-B114-8A324072454F");
         Name = "Less Than Value";
         Description = "Fails validation if this field is not less than value";
+        Icon = "icon-less-than";
     }
 
     public override bool Validate(FormValue value, FormValidationContext context)

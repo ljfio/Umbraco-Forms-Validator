@@ -13,6 +13,7 @@ public class FieldRequired : FieldValidationRule
         Id = new Guid("458890B0-591E-4135-A951-B26FB0A8E6F3");
         Name = "Required";
         Description = "Fails validation if this field is not set";
+        Icon = "icon-asterisk";
     }
 
     public override bool Validate(FormValue value, FormValidationContext context)

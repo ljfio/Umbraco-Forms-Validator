@@ -27,6 +27,7 @@ public class RuleController : UmbracoAuthorizedJsonController
             {
                 Id = rule.Id.ToString(),
                 Name = rule.Name,
+                Icon = rule.Icon,
                 Description = rule.Description,
             });
 

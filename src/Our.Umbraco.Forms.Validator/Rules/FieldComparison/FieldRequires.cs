@@ -13,6 +13,7 @@ public class FieldRequires : FieldComparisonRule
         Id = new Guid("6C1E381B-87E0-4E86-8187-5E00C3572834");
         Name = "Requires Field";
         Description = "Fails validation if compared fields is not set";
+        Icon = "icon-asterisk";
     }
 
     public override bool Validate(FormValue current, FormValue compare, FormValidationContext context)

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using System.Runtime.Serialization;
-using System.Text.Json.Serialization;
 
 namespace Our.Umbraco.Forms.Validator.Models;
 
@@ -17,4 +16,7 @@ public class RuleModel
 
     [DataMember(Name = "description")]
     public string Description { get; init; }
+    
+    [DataMember(Name = "icon")] 
+    public string Icon { get; init; }
 }

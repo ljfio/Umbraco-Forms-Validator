@@ -11,6 +11,8 @@ public abstract class FormValidationRule : IFormValidationRule
 
     public string Description { get; protected init; }
 
+    public string Icon { get; protected init; }
+
     bool IFormValidationRule.Validate(FormValidationContext context)
     {
         return Validate(context);
