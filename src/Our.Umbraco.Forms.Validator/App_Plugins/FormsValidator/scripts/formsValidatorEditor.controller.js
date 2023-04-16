@@ -30,7 +30,7 @@
         vm.openRulePicker = function () {
             var options = {
                 title: "Rules",
-                size: "medium",
+                size: "small",
                 view: "/App_Plugins/FormsValidator/views/rulePicker.html",
                 submit: function (model) {
                     vm.selectedRule = model.rule;
