@@ -37,28 +37,47 @@
                     </umb-control-group>
 
                     <umb-control-group
-                            label="Form field"
-                            description="The field to apply validation rule to"
+                            ng-if="vm.selectedRule"
+                            ng-repeat="settingField in vm.selectedRule.settingFields"
+                            label="{{ settingField.name }}"
+                            description="{{ settingField.description }}"
                             required>
-                        <umb-button
-                                ng-if="!vm.selectedField"
-                                action="vm.openFieldPicker()"
-                                type="button"
-                                button-style="[placeholder,block]"
-                                label="Select field">
-                        </umb-button>
+                        <div ng-if="settingField.type === 'field'">
+                            <umb-button
+                                    ng-if="!vm.selectedField"
+                                    action="vm.openFieldPicker()"
+                                    type="button"
+                                    button-style="[placeholder,block]"
+                                    label="Select field">
+                            </umb-button>
+
+                            <umb-node-preview
+                                    ng-if="vm.selectedField"
+                                    allow-edit="true"
+                                    allow-remove="true"
+                                    on-edit="vm.openFieldPicker()"
+                                    on-remove="vm.removeField()"
+                                    name="vm.selectedField.alias"
+                                    description="vm.selectedField.caption"
+                                    icon="vm.selectedField.$fieldType.icon"
+                                    single>
+                            </umb-node-preview>
+                        </div>
                         
-                        <umb-node-preview
-                                ng-if="vm.selectedField"
-                                allow-edit="true"
-                                allow-remove="true"
-                                on-edit="vm.openFieldPicker()"
-                                on-remove="vm.removeField()"
-                                name="vm.selectedField.alias"
-                                description="vm.selectedField.caption"
-                                icon="vm.selectedField.$fieldType.icon"
-                                single>
-                        </umb-node-preview>
+                        <div ng-if="settingField.type === 'value'">
+                            <input type="text"
+                                   class="-full-width-input"/>
+                        </div>
+
+                        <div ng-if="settingField.type === 'dataType'">
+                            <umb-button
+                                    action="vm.openFieldPicker()"
+                                    type="button"
+                                    button-style="[placeholder,block]"
+                                    label="Select data type">
+                            </umb-button>
+
+                        </div>
                     </umb-control-group>
 
                     <umb-control-group

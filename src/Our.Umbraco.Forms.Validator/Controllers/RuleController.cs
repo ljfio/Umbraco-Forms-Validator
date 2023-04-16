@@ -53,6 +53,7 @@ public class RuleController : UmbracoAuthorizedJsonController
                     Name = attribute.Name,
                     Alias = attribute.Alias ?? property.Name.ToFirstLowerInvariant(),
                     Type = attribute.Type.ToString().ToFirstLowerInvariant(),
+                    Description = attribute.Description
                 };
             }
         }

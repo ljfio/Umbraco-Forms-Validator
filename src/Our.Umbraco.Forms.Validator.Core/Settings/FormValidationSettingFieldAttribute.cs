@@ -14,6 +14,8 @@ public class FormValidationSettingFieldAttribute : Attribute
     public string Name { get; }
 
     public string? Alias { get; init; }
+
+    public string? Description { get; init; }
     
     public FormValidationSettingFieldType Type { get; init; }
 }

@@ -16,4 +16,7 @@ public class SettingFieldModel
 
     [DataMember(Name = "type")]
     public string Type { get; init; }
+    
+    [DataMember(Name = "description")]
+    public string? Description { get; init; }
 }
