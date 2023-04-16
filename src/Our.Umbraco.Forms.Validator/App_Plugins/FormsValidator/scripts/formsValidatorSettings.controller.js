@@ -8,8 +8,8 @@
 
         vm.settingsProperties = [
             {
-                "alias": "description",
-                "header": "Description"
+                "alias": "field",
+                "header": "Field"
             }
         ];
 
@@ -23,6 +23,13 @@
                 size: "small",
                 view: "/App_Plugins/FormsValidator/views/ruleSettingEditor.html",
                 submit: function (model) {
+                    vm.settings.push({
+                        name: model.rule.name,
+                        icon: model.rule.icon,
+                        field: model.field.alias,
+                        selected: false,
+                    });
+                    
                     editorService.close();
                 },
                 close: function () {
