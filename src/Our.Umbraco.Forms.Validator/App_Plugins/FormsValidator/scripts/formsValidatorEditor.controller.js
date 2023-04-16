@@ -1,22 +1,23 @@
 (function () {
     "use strict";
 
-    function FormsValidatorEditorController($scope, eventsService, editorService, formService, editorState) {
+    function FormsValidatorEditorController($scope, eventsService, editorService) {
         var vm = this;
-
-        var state = editorState.getCurrent();
-        vm.fields = formService.getAllFields(state);
-
-        vm.rules = [];
+        
         vm.selectedRule = null;
-
         vm.selectedField = null;
-        vm.fieldSelectorOpen = false;
-
+        
+        vm.customMessage = null;
         vm.stopProcessing = false;
 
         vm.submit = function () {
             if ($scope.model.submit) {
+                
+                $scope.model.rule = vm.selectedRule;
+                $scope.model.field = vm.selectedField;
+                $scope.model.message = vm.customMessage;
+                $scope.model.stopProcessing = vm.stopProcessing;
+                
                 $scope.model.submit($scope.model);
             }
         }
@@ -44,25 +45,29 @@
             editorService.open(options);
         }
 
+        vm.openFieldPicker = function () {
+            var options = {
+                title: "Field",
+                size: "small",
+                view: "/App_Plugins/FormsValidator/views/fieldPicker.html",
+                submit: function (model) {
+                    vm.selectedField = model.field;
+                    editorService.close();
+                },
+                close: function () {
+                    editorService.close();
+                }
+            };
+
+            editorService.open(options);
+        }
+
         vm.removeSelectedRule = function () {
             vm.selectedRule = null;
         }
 
-        vm.selectField = function (field) {
-            vm.selectedField = field;
-            vm.closeFieldSelector();
-        }
-
         vm.removeField = function () {
             vm.selectedField = null;
-        }
-
-        vm.openFieldSelector = function () {
-            vm.fieldSelectorOpen = true;
-        }
-
-        vm.closeFieldSelector = function () {
-            vm.fieldSelectorOpen = false;
         }
 
         vm.toggleStopProcessing = function () {

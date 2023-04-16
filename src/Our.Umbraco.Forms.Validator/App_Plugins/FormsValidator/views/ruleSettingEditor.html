@@ -40,36 +40,25 @@
                             label="Form field"
                             description="The field to apply validation rule to"
                             required>
+                        <umb-button
+                                ng-if="!vm.selectedField"
+                                action="vm.openFieldPicker()"
+                                type="button"
+                                button-style="[placeholder,block]"
+                                label="Select field">
+                        </umb-button>
+                        
                         <umb-node-preview
                                 ng-if="vm.selectedField"
+                                allow-edit="true"
                                 allow-remove="true"
+                                on-edit="vm.openFieldPicker()"
                                 on-remove="vm.removeField()"
                                 name="vm.selectedField.alias"
                                 description="vm.selectedField.caption"
+                                icon="vm.selectedField.$fieldType.icon"
                                 single>
                         </umb-node-preview>
-
-                        <div style="position: relative;">
-                            <umb-button
-                                    ng-if="!vm.selectedField"
-                                    action="vm.openFieldSelector()"
-                                    type="button"
-                                    button-style="[placeholder,block]"
-                                    label="Select field">
-                            </umb-button>
-
-                            <umb-dropdown ng-if="vm.fieldSelectorOpen"
-                                          on-close="vm.openFieldSelector()"
-                                          umb-keyboard-list>
-                                <umb-dropdown-item
-                                        ng-repeat="field in vm.fields">
-                                    <button class="btn-reset" 
-                                            ng-click="vm.selectField(field)">
-                                        {{ field.alias }}
-                                    </button>
-                                </umb-dropdown-item>
-                            </umb-dropdown>
-                        </div>
                     </umb-control-group>
 
                     <umb-control-group

@@ -1,4 +1,4 @@
-<div ng-controller="FormsValidator.RulePicker as vm">
+<div ng-controller="FormsValidator.FieldPicker as vm">
     <umb-editor-view>
         <umb-editor-header
                 name="model.title"
@@ -11,16 +11,22 @@
         <umb-editor-container>
             <umb-box>
                 <umb-box-content>
-                    <ul class="umb-card-grid -three-in-row">
-                        <li ng-repeat="rule in vm.rules">
+                    <ul class="umb-actions umb-actions-child">
+                        <li class="umb-action"
+                            ng-repeat="field in vm.fields">
                             <button
                                     type="button"
-                                    title="{{ rule.description }}"
-                                    class="btn-reset umb-card-grid-item"
-                                    ng-click="vm.selectRule(rule)">
-                                <span>
-                                    <umb-icon icon="{{ rule.icon || 'icon-check' }}"></umb-icon>
-                                    {{ rule.name }}
+                                    title="{{ field.caption }}"
+                                    class="umb-action-link umb-outline btn-reset"
+                                    ng-click="vm.selectField(field)">
+                                <umb-icon class="large"
+                                          icon="{{ field.$fieldType.icon }}">
+                                </umb-icon>
+                                <span class="menu-label">
+                                    {{ field.alias }}
+                                    <small>
+                                        {{ field.caption }}
+                                    </small>
                                 </span>
                             </button>
                         </li>

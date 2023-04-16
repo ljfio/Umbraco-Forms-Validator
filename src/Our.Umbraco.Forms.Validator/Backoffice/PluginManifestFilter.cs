@@ -19,6 +19,7 @@ public class PluginManifestFilter : IManifestFilter
                 "/App_Plugins/FormsValidator/scripts/formsValidatorEditor.controller.js",
                 "/App_Plugins/FormsValidator/scripts/formsValidatorSettings.controller.js",
                 "/App_Plugins/FormsValidator/scripts/formsValidatorRulePicker.controller.js",
+                "/App_Plugins/FormsValidator/scripts/formsValidatorFieldPicker.controller.js",
             },
             BundleOptions = BundleOptions.None,
         });
