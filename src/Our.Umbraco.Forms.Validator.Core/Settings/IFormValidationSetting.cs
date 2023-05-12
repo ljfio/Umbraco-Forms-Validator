@@ -1,12 +1,12 @@
 // Copyright 2023 Luke Fisher
 // SPDX-License-Identifier: Apache-2.0
 
+using Umbraco.Cms.Core.Models.Entities;
+
 namespace Our.Umbraco.Forms.Validator.Core.Settings;
 
-public interface IFormValidationSetting
+public interface IFormValidationSetting : IEntity
 {
-    Guid Id { get; }
-    
     Guid FormId { get; }
     
     Guid RuleId { get; }

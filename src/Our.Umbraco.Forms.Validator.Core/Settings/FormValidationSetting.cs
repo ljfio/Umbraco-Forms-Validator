@@ -9,8 +9,10 @@ namespace Our.Umbraco.Forms.Validator.Core.Settings;
 [DataContract]
 public class FormValidationSetting : IFormValidationSetting
 {
-    public Guid Id { get; set; }
-
+    public int Id { get; set; }
+    
+    public Guid Key { get; set; } = Guid.Empty;
+    
     [DataMember]
     public Guid FormId { get; set; }
     
@@ -22,4 +24,23 @@ public class FormValidationSetting : IFormValidationSetting
 
     [DataMember]
     public bool StopProcessing { get; set; }
+
+    public DateTime CreateDate { get; set; }
+
+    public DateTime UpdateDate { get; set; }
+
+    public DateTime? DeleteDate { get; set; }
+
+    public bool HasIdentity => Key != Guid.Empty;
+    
+    public object DeepClone()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ResetIdentity()
+    {
+        Id = default;
+        Key = Guid.NewGuid();
+    }
 }

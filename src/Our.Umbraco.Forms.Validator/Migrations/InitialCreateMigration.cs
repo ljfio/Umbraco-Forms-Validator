@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using Microsoft.Extensions.Logging;
-using Our.Umbraco.Forms.Validator.Infrastructure;
+using Our.Umbraco.Forms.Validator.Persistence.Dtos;
 using Umbraco.Cms.Infrastructure.Migrations;
 
 namespace Our.Umbraco.Forms.Validator.Migrations;
@@ -17,14 +17,14 @@ public sealed class InitialCreateMigration : MigrationBase
     {
         Logger.LogDebug("Running migration {name}", nameof(InitialCreateMigration));
 
-        if (TableExists(FormValidationSettingSchema.TableName))
+        if (TableExists(FormValidationSettingDto.TableName))
         {
-            Logger.LogDebug("Table {name} already exists", FormValidationSettingSchema.TableName);
+            Logger.LogDebug("Table {name} already exists", FormValidationSettingDto.TableName);
             return;
         }
 
-        Create.Table<FormValidationSettingSchema>().Do();
+        Create.Table<FormValidationSettingDto>().Do();
         
-        Logger.LogDebug("Table {name} created", FormValidationSettingSchema.TableName);
+        Logger.LogDebug("Table {name} created", FormValidationSettingDto.TableName);
     }
 }
