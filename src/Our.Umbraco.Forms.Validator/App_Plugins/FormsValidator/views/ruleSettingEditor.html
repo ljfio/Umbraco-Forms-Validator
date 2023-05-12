@@ -38,60 +38,53 @@
 
                     <umb-control-group
                             ng-if="vm.selectedRule"
-                            ng-repeat="settingField in vm.selectedRule.settingFields"
-                            label="{{ settingField.name }}"
-                            description="{{ settingField.description }}"
+                            ng-repeat="field in vm.selectedRule.settingFields"
+                            label="{{ field.name }}"
+                            description="{{ field.description }}"
                             required>
-                        <div ng-if="settingField.type === 'field'">
+                        <div ng-if="field.type === 'field'">
                             <umb-button
-                                    ng-if="!vm.selectedField"
-                                    action="vm.openFieldPicker()"
+                                    ng-if="!vm.values[field.alias]"
+                                    action="vm.openFieldPicker(field.alias)"
                                     type="button"
                                     button-style="[placeholder,block]"
                                     label="Select field">
                             </umb-button>
 
                             <umb-node-preview
-                                    ng-if="vm.selectedField"
+                                    ng-if="vm.values[field.alias]"
                                     allow-edit="true"
                                     allow-remove="true"
-                                    on-edit="vm.openFieldPicker()"
-                                    on-remove="vm.removeField()"
-                                    name="vm.selectedField.alias"
-                                    description="vm.selectedField.caption"
-                                    icon="vm.selectedField.$fieldType.icon"
+                                    on-edit="vm.openFieldPicker(field.alias)"
+                                    on-remove="vm.removeValue(field.alias)"
+                                    name="vm.values[field.alias].alias"
+                                    description="vm.values[field.alias].caption"
+                                    icon="vm.values[field.alias].$fieldType.icon"
                                     single>
                             </umb-node-preview>
                         </div>
-                        
-                        <div ng-if="settingField.type === 'value'">
+
+                        <div ng-if="field.type === 'value'">
                             <input type="text"
+                                   ng-value="vm.values[field.alias]"
                                    class="-full-width-input"/>
                         </div>
 
-                        <div ng-if="settingField.type === 'dataType'">
+                        <div ng-if="field.type === 'dataType'">
                             <umb-button
-                                    action="vm.openFieldPicker()"
+                                    action="vm.openFieldPicker(field.alias)"
                                     type="button"
                                     button-style="[placeholder,block]"
                                     label="Select data type">
                             </umb-button>
-
                         </div>
-                    </umb-control-group>
 
-                    <umb-control-group
-                            label="Message"
-                            description="Custom validation error message">
-                        <input type="text" class="-full-width-input"/>
-                    </umb-control-group>
-
-                    <umb-control-group
-                            label="Stop processing"
-                            description="Toggle if you want to stop processing validation rules on failure">
-                        <umb-toggle
-                                checked="vm.stopProcessing"
-                                on-click="vm.toggleStopProcessing()"></umb-toggle>
+                        <div ng-if="field.type === 'toggle'">
+                            <umb-toggle
+                                    checked="vm.values[field.alias]"
+                                    on-click="vm.toggleValue(field.alias)">
+                            </umb-toggle>
+                        </div>
                     </umb-control-group>
                 </umb-box-content>
             </umb-box>

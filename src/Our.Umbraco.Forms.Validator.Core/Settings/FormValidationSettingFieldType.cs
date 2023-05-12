@@ -7,5 +7,6 @@ public enum FormValidationSettingFieldType
 {
     Value = 0,
     Field = 1,
-    DataType = 2
+    DataType = 2,
+    Toggle = 3,
 }

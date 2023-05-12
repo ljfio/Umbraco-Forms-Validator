@@ -5,18 +5,12 @@
         var vm = this;
         
         vm.selectedRule = null;
-        vm.selectedField = null;
-        
-        vm.customMessage = null;
-        vm.stopProcessing = false;
+        vm.values = {};
 
         vm.submit = function () {
             if ($scope.model.submit) {
-                
                 $scope.model.rule = vm.selectedRule;
-                $scope.model.field = vm.selectedField;
-                $scope.model.message = vm.customMessage;
-                $scope.model.stopProcessing = vm.stopProcessing;
+                $scope.model.values = vm.values;
                 
                 $scope.model.submit($scope.model);
             }
@@ -34,24 +28,17 @@
                 size: "small",
                 view: "/App_Plugins/FormsValidator/views/rulePicker.html",
                 submit: function (model) {
+                    vm.values = {};
                     vm.selectedRule = model.rule;
-                    editorService.close();
-                },
-                close: function () {
-                    editorService.close();
-                }
-            };
 
-            editorService.open(options);
-        }
-
-        vm.openFieldPicker = function () {
-            var options = {
-                title: "Field",
-                size: "small",
-                view: "/App_Plugins/FormsValidator/views/fieldPicker.html",
-                submit: function (model) {
-                    vm.selectedField = model.field;
+                    model.rule.settingFields
+                        .forEach(field => {
+                            if (field.type === 'toggle')
+                                vm.values[field.alias] = false;
+                            else
+                                vm.values[field.alias] = null;
+                        })
+                    
                     editorService.close();
                 },
                 close: function () {
@@ -64,14 +51,33 @@
 
         vm.removeSelectedRule = function () {
             vm.selectedRule = null;
+            vm.values = {};
         }
 
-        vm.removeField = function () {
-            vm.selectedField = null;
+        vm.openFieldPicker = function (alias) {
+            var options = {
+                title: "Field",
+                size: "small",
+                view: "/App_Plugins/FormsValidator/views/fieldPicker.html",
+                submit: function (model) {
+                    vm.values[alias] = model.field;
+                    
+                    editorService.close();
+                },
+                close: function () {
+                    editorService.close();
+                }
+            };
+
+            editorService.open(options);
         }
 
-        vm.toggleStopProcessing = function () {
-            vm.stopProcessing = !vm.stopProcessing;
+        vm.toggleValue = function (alias) {
+            vm.values[alias] = !vm.values[alias];
+        }
+        
+        vm.removeValue = function(alias) {
+            delete vm.values[alias];
         }
     }
 
