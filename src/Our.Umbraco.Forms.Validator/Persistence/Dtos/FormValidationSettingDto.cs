@@ -12,6 +12,12 @@ public sealed class FormValidationSettingDto : BaseDto
 {
     public const string TableName = "FormValidationSetting";
     
+    [Column(Name = nameof(FormKey))]
+    public Guid FormKey { get; set; }
+
+    [Column(Name = nameof(RuleKey))]
+    public Guid RuleKey { get; set; }
+    
     [Column(Name = nameof(Type))] 
     public string Type { get; set; }
 }

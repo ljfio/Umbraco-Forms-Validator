@@ -20,6 +20,8 @@ public class FormValidationSettingMapper : BaseMapper
     {
         DefineMap<IFormValidationSetting, FormValidationSettingDto>(nameof(IFormValidationSetting.Id), nameof(FormValidationSettingDto.Id));
         DefineMap<IFormValidationSetting, FormValidationSettingDto>(nameof(IFormValidationSetting.Key), nameof(FormValidationSettingDto.Key));
+        DefineMap<IFormValidationSetting, FormValidationSettingDto>(nameof(IFormValidationSetting.FormKey), nameof(FormValidationSettingDto.FormKey));
+        DefineMap<IFormValidationSetting, FormValidationSettingDto>(nameof(IFormValidationSetting.RuleKey), nameof(FormValidationSettingDto.RuleKey));
         DefineMap<IFormValidationSetting, FormValidationSettingDto>(nameof(IFormValidationSetting.CreateDate), nameof(FormValidationSettingDto.CreateDate));
         DefineMap<IFormValidationSetting, FormValidationSettingDto>(nameof(IFormValidationSetting.UpdateDate), nameof(FormValidationSettingDto.UpdateDate));
     }
