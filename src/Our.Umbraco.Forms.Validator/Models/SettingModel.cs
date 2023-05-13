@@ -15,5 +15,5 @@ public class SettingModel
     public Guid RuleId { get; init; }
 
     [DataMember(Name = "values")]
-    public IDictionary<string, object> Values { get; init; } = new Dictionary<string, object>();
+    public IDictionary<string, object?> Values { get; init; } = new Dictionary<string, object?>();
 }

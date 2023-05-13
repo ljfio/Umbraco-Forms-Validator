@@ -1,6 +1,7 @@
 // Copyright 2023 Luke Fisher
 // SPDX-License-Identifier: Apache-2.0
 
+using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Our.Umbraco.Forms.Validator.Core.Settings;
 using Our.Umbraco.Forms.Validator.Models;
@@ -9,6 +10,7 @@ using Our.Umbraco.Forms.Validator.Services;
 using Umbraco.Cms.Infrastructure.Scoping;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.Common.Attributes;
+using Umbraco.Extensions;
 
 namespace Our.Umbraco.Forms.Validator.Controllers;
 
@@ -52,7 +54,7 @@ public class SettingController : UmbracoAuthorizedJsonController
     }
 
     [HttpGet]
-    public IActionResult GetForm([FromQuery] Guid id)
+    public IActionResult Get([FromQuery] Guid id)
     {
         using var scope = _scopeProvider.CreateScope();
 
@@ -61,8 +63,40 @@ public class SettingController : UmbracoAuthorizedJsonController
 
         var entities = _repository.Get(query);
 
+        var settings = entities
+            .Select(entity => new SettingModel
+            {
+                Id = entity.Key,
+                RuleId = entity.RuleKey,
+                Values = GetValues(entity),
+            })
+            .ToList();
+
         scope.Complete();
 
-        return Ok();
+        return Ok(settings);
+    }
+
+    private IDictionary<string,object?> GetValues(IFormValidationSetting entity)
+    {
+        var values = new Dictionary<string, object?>();
+
+        var type = entity.GetType();
+
+        foreach (var property in type.GetProperties())
+        {
+            var attribute = property.GetCustomAttribute<FormValidationSettingFieldAttribute>();
+            
+            if (attribute is null)
+                continue;
+
+            string alias = attribute.Alias ?? property.Name.ToFirstLowerInvariant();
+
+            var value = property.GetValue(entity);
+            
+            values.Add(alias, value);
+        }
+
+        return values;
     }
 }

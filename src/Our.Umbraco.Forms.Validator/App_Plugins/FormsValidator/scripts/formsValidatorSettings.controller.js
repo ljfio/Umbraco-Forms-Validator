@@ -44,7 +44,11 @@
             editorService.open(options);
         }
 
-        if (!$routeParams.create && $routeParams.id > 0) {
+        if (!$routeParams.create) {
+            formsValidatorResource.getSettings($routeParams.id)
+                .then(function (settings) {
+                    vm.settings = settings;
+                });
         }
 
         var unsubscribe = eventsService.on('umbracoForms.saved', function (event, args) {
