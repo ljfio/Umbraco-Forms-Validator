@@ -41,7 +41,7 @@ public class SettingController : UmbracoAuthorizedJsonController
         foreach (var setting in settings)
         {
             var entity = _factory.Create(setting.Id, id, setting.RuleId, setting.Values);
-            
+
             if (entity is null)
                 continue;
 
@@ -77,24 +77,24 @@ public class SettingController : UmbracoAuthorizedJsonController
         return Ok(settings);
     }
 
-    private IDictionary<string,object?> GetValues(IFormValidationSetting entity)
+    private IDictionary<string, string?> GetValues(IFormValidationSetting entity)
     {
-        var values = new Dictionary<string, object?>();
+        var values = new Dictionary<string, string?>();
 
         var type = entity.GetType();
 
         foreach (var property in type.GetProperties())
         {
             var attribute = property.GetCustomAttribute<FormValidationSettingFieldAttribute>();
-            
+
             if (attribute is null)
                 continue;
 
             string alias = attribute.Alias ?? property.Name.ToFirstLowerInvariant();
 
             var value = property.GetValue(entity);
-            
-            values.Add(alias, value);
+
+            values.Add(alias, value?.ToString());
         }
 
         return values;

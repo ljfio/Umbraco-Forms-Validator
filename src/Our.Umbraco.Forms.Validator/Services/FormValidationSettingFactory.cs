@@ -37,7 +37,7 @@ public class FormValidationSettingFactory : IFormValidationSettingFactory, IPers
         return setting;
     }
 
-    public IFormValidationSetting? Create(Guid key, Guid formKey, Guid ruleKey, IDictionary<string, object> values)
+    public IFormValidationSetting? Create(Guid key, Guid formKey, Guid ruleKey, IDictionary<string, string?> values)
     {
         var rule = _rules[ruleKey];
 
@@ -66,11 +66,22 @@ public class FormValidationSettingFactory : IFormValidationSettingFactory, IPers
             if (!values.ContainsKey(alias))
                 continue;
 
-            property.SetValue(setting, values[alias]);
+            var value = ParseValue(attribute.Type, values[alias]);
+            
+            property.SetValue(setting, value);
         }
 
         return setting as IFormValidationSetting;
     }
+
+    private object? ParseValue(FormValidationSettingFieldType type, string value) => type switch
+    {
+        FormValidationSettingFieldType.Value => value,
+        FormValidationSettingFieldType.Field => Guid.Parse(value),
+        FormValidationSettingFieldType.DataType => Guid.Parse(value),
+        FormValidationSettingFieldType.Toggle => bool.Parse(value),
+        _ => throw new NotSupportedException("Field type is not supported"),
+    };
 
     public FormValidationSettingDto Create(IFormValidationSetting setting)
     {
@@ -80,6 +91,8 @@ public class FormValidationSettingFactory : IFormValidationSettingFactory, IPers
         {
             Id = setting.Id,
             Key = setting.Key,
+            FormKey = setting.FormKey,
+            RuleKey = setting.RuleKey,
             Type = setting.GetType().Name,
             Definition = definition,
             CreateDate = setting.CreateDate,
