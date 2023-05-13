@@ -29,7 +29,7 @@ internal sealed class FormValidationSettingRepository : EntityRepositoryBase<Gui
     {
         _settingFactory = settingFactory;
     }
-    
+
     /// <inheritdoc />
     protected override IFormValidationSetting? PerformGet(Guid key)
     {
@@ -46,7 +46,7 @@ internal sealed class FormValidationSettingRepository : EntityRepositoryBase<Gui
     {
         var query = SqlContext.Query<IFormValidationSetting>()
             .WhereIn(setting => setting.Key, keys);
-        
+
         return PerformGetByQuery(query);
     }
 
@@ -54,7 +54,7 @@ internal sealed class FormValidationSettingRepository : EntityRepositoryBase<Gui
     protected override IEnumerable<IFormValidationSetting> PerformGetByQuery(IQuery<IFormValidationSetting> query)
     {
         var sql = GetBaseQuery(false);
-        
+
         var translator = new SqlTranslator<IFormValidationSetting>(sql, query);
 
         var translatedSql = translator.Translate();
@@ -69,6 +69,7 @@ internal sealed class FormValidationSettingRepository : EntityRepositoryBase<Gui
     /// <inheritdoc />
     protected override void PersistNewItem(IFormValidationSetting item)
     {
+        item.ResetIdentity();
         item.AddingEntity();
         var row = _settingFactory.Create(item);
         Database.Insert(row);
@@ -90,14 +91,11 @@ internal sealed class FormValidationSettingRepository : EntityRepositoryBase<Gui
     }
 
     /// <inheritdoc />
-    protected override string GetBaseWhereClause()
-    {
-        throw new NotImplementedException();
-    }
+    protected override string GetBaseWhereClause() => $"{FormValidationSettingDto.TableName}.[Key] = @key";
 
     /// <inheritdoc />
-    protected override IEnumerable<string> GetDeleteClauses()
+    protected override IEnumerable<string> GetDeleteClauses() => new[]
     {
-        throw new NotImplementedException();
-    }
+        $"DELETE FROM {FormValidationSettingDto.TableName} WHERE [Key] = @key",
+    };
 }

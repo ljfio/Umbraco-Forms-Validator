@@ -2,14 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using Microsoft.AspNetCore.Mvc;
-using Our.Umbraco.Forms.Validator.Core.Rules;
+using Our.Umbraco.Forms.Validator.Core.Settings;
 using Our.Umbraco.Forms.Validator.Models;
 using Our.Umbraco.Forms.Validator.Persistence.Repositories;
 using Our.Umbraco.Forms.Validator.Services;
 using Umbraco.Cms.Infrastructure.Scoping;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.Common.Attributes;
-using Umbraco.Extensions;
 
 namespace Our.Umbraco.Forms.Validator.Controllers;
 
@@ -22,7 +21,7 @@ public class SettingController : UmbracoAuthorizedJsonController
 
     public SettingController(
         IScopeProvider scopeProvider,
-        IFormValidationSettingRepository repository, 
+        IFormValidationSettingRepository repository,
         IPersistedFormValidationSettingFactory factory)
     {
         _scopeProvider = scopeProvider;
@@ -53,8 +52,17 @@ public class SettingController : UmbracoAuthorizedJsonController
     }
 
     [HttpGet]
-    public IActionResult GetForm([FromQuery]Guid id)
+    public IActionResult GetForm([FromQuery] Guid id)
     {
+        using var scope = _scopeProvider.CreateScope();
+
+        var query = scope.SqlContext.Query<IFormValidationSetting>()
+            .Where(setting => setting.FormKey == id);
+
+        var entities = _repository.Get(query);
+
+        scope.Complete();
+
         return Ok();
     }
 }
