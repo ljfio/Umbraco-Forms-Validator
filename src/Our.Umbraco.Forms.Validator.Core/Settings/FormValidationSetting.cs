@@ -14,10 +14,10 @@ public class FormValidationSetting : IFormValidationSetting
     public Guid Key { get; set; } = Guid.Empty;
     
     [DataMember]
-    public Guid FormId { get; set; }
+    public Guid FormKey { get; set; }
     
     [DataMember]
-    public Guid RuleId { get; set; }
+    public Guid RuleKey { get; set; }
 
     [DataMember]
     [FormValidationSettingField(

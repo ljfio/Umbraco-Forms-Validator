@@ -1,4 +1,4 @@
-function formsValidatorResource($q, $http, umbRequestHelper){
+function formsValidatorResource($q, $http, umbRequestHelper) {
     return {
         getAllRules: function () {
             return umbRequestHelper.resourcePromise(
@@ -9,6 +9,23 @@ function formsValidatorResource($q, $http, umbRequestHelper){
                     )
                 ),
                 "Failed to retrieve data for forms validator rules"
+            );
+        },
+        saveSettings: function (id, settings) {
+            var query = {
+                id: id,
+            };
+
+            return umbRequestHelper.resourcePromise(
+                $http.post(
+                    umbRequestHelper.getApiUrl(
+                        "formsValidatorSettingsApiBaseUrl",
+                        "Save",
+                        query
+                    ),
+                    settings
+                ),
+                "Failed to save forms validator rules"
             );
         }
     }

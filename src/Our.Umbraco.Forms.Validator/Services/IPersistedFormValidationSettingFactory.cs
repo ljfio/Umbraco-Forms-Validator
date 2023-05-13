@@ -10,4 +10,5 @@ namespace Our.Umbraco.Forms.Validator.Services;
 public interface IPersistedFormValidationSettingFactory : IFormValidationSettingFactory
 {
     FormValidationSettingDto Create(IFormValidationSetting setting);
+    IFormValidationSetting? Create(Guid key, Guid formKey, Guid ruleKey, IDictionary<string, object> values);
 }

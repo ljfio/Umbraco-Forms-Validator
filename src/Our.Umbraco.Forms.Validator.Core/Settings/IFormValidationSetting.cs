@@ -7,9 +7,9 @@ namespace Our.Umbraco.Forms.Validator.Core.Settings;
 
 public interface IFormValidationSetting : IEntity
 {
-    Guid FormId { get; }
+    Guid FormKey { get; }
     
-    Guid RuleId { get; }
+    Guid RuleKey { get; }
     
     string? Message { get; }
     

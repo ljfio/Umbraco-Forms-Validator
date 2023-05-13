@@ -5,12 +5,12 @@
         var vm = this;
 
         vm.settings = [];
-        
+
         vm.settingsProperties = [
-            {
-                "alias": "field",
-                "header": "Field"
-            }
+            // {
+            //     "alias": "field",
+            //     "header": "Field"
+            // }
         ];
 
         vm.editSetting = function () {
@@ -25,8 +25,12 @@
                 submit: function (model) {
                     vm.settings.push({
                         name: model.rule.name,
+                        description: model.rule.description,
                         icon: model.rule.icon,
-                        field: model.field.alias,
+                        data: {
+                            rule: model.rule.id,
+                            values: model.values,
+                        },
                         selected: false,
                     });
 
@@ -42,8 +46,13 @@
 
         if (!$routeParams.create && $routeParams.id > 0) {
         }
-        
-        var unsubscribe = eventsService.on('umbracoForms.saved', function (event, args){
+
+        var unsubscribe = eventsService.on('umbracoForms.saved', function (event, args) {
+            debugger;
+
+            var settings = vm.settings.map(setting => setting.data);
+
+            formsValidatorResource.saveSettings(args.id, settings);
         });
 
         $scope.$on("$destroy", function () {
@@ -53,7 +62,7 @@
 
     angular.module("umbraco")
         .controller("FormsValidator.SettingsContentApp", FormsValidatorSettingsController);
-    
+
     angular.module('umbraco.services')
         .config(['$provide', function ($provide) {
             return $provide.decorator('formResource', ['$delegate', 'eventsService', function ($delegate, eventsService) {
@@ -65,7 +74,7 @@
                             eventsService.emit('umbracoForms.saved', {
                                 id: response.data.id,
                             });
-                            
+
                             return response;
                         });
                 };

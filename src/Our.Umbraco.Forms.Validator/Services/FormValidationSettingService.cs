@@ -64,9 +64,9 @@ public sealed class FormValidationSettingService : IFormValidationSettingService
     
     private void AddToCache(IFormValidationSetting setting)
     {
-        var rule = _rules[setting.RuleId];
+        var rule = _rules[setting.RuleKey];
 
-        var rules = GetCacheForForm(setting.FormId);
+        var rules = GetCacheForForm(setting.FormKey);
 
         var existing = rules.SingleOrDefault(r => r.Setting.Id == setting.Id);
 
