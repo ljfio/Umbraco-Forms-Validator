@@ -38,7 +38,7 @@ internal sealed class FormValidationSettingRepository : EntityRepositoryBase<Gui
 
         var row = Database.SingleOrDefault<FormValidationSettingDto>(query);
 
-        return _settingFactory.Create(row.Key, row.Type, row.Definition);
+        return _settingFactory.Create(row.Key, row.FormKey, row.RuleKey, row.Type, row.Definition);
     }
 
     /// <inheritdoc />
@@ -62,7 +62,7 @@ internal sealed class FormValidationSettingRepository : EntityRepositoryBase<Gui
         var rows = Database.Fetch<FormValidationSettingDto>(translatedSql);
 
         return rows
-            .Select(setting => _settingFactory.Create(setting.Key, setting.Type, setting.Definition))
+            .Select(setting => _settingFactory.Create(setting.Key, setting.FormKey, setting.RuleKey, setting.Type, setting.Definition))
             .ToList();
     }
 

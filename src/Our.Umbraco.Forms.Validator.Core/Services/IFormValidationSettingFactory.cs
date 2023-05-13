@@ -7,5 +7,5 @@ namespace Our.Umbraco.Forms.Validator.Core.Services;
 
 public interface IFormValidationSettingFactory
 {
-    IFormValidationSetting Create(Guid key, string type, string definition);
+    IFormValidationSetting Create(Guid key, Guid formKey, Guid ruleKey, string type, string definition);
 }

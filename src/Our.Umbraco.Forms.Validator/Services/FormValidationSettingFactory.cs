@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using System.Reflection;
-using System.Text.Json;
+using Newtonsoft.Json;
 using Our.Umbraco.Forms.Validator.Core.Rules;
 using Our.Umbraco.Forms.Validator.Core.Services;
 using Our.Umbraco.Forms.Validator.Core.Settings;
@@ -24,15 +24,14 @@ public class FormValidationSettingFactory : IFormValidationSettingFactory, IPers
         _rules = rules;
     }
 
-    public IFormValidationSetting Create(Guid key, string type, string definition)
+    public IFormValidationSetting Create(Guid key, Guid formKey, Guid ruleKey, string type, string definition)
     {
         var validType = _types[type];
 
-        if (JsonSerializer.Deserialize(definition, validType) is not IFormValidationSetting setting)
+        if (JsonConvert.DeserializeObject(definition, validType) is not IFormValidationSetting setting)
             throw new InvalidOperationException();
 
-        var property = validType.GetProperty(nameof(IFormValidationSetting.Key));
-        property?.SetValue(setting, key);
+        AssociateIdentities(setting, key, formKey, ruleKey);
 
         return setting;
     }
@@ -41,19 +40,11 @@ public class FormValidationSettingFactory : IFormValidationSettingFactory, IPers
     {
         var rule = _rules[ruleKey];
 
-        var setting = Activator.CreateInstance(rule.SettingType);
-        
-        // Associate identities
-        var keyProperty = rule.SettingType.GetProperty(nameof(IFormValidationSetting.Key));
-        keyProperty?.SetValue(setting, key);
+        if (Activator.CreateInstance(rule.SettingType) is not IFormValidationSetting setting)
+            return null;
 
-        var formProperty = rule.SettingType.GetProperty(nameof(IFormValidationSetting.FormKey));
-        formProperty?.SetValue(setting, formKey);
+        AssociateIdentities(setting, key, formKey, ruleKey);
 
-        var ruleProperty = rule.SettingType.GetProperty(nameof(IFormValidationSetting.RuleKey));
-        ruleProperty?.SetValue(setting, ruleKey);
-        
-        // Associate values to fields
         foreach (var property in rule.SettingType.GetProperties())
         {
             var attribute = property.GetCustomAttribute<FormValidationSettingFieldAttribute>();
@@ -66,26 +57,40 @@ public class FormValidationSettingFactory : IFormValidationSettingFactory, IPers
             if (!values.ContainsKey(alias))
                 continue;
 
-            var value = ParseValue(attribute.Type, values[alias]);
-            
+            var value = values[alias] is not null ? ParseValue(attribute.Type, values[alias]!) : null;
+
             property.SetValue(setting, value);
         }
 
-        return setting as IFormValidationSetting;
+        return setting;
+    }
+
+    private void AssociateIdentities(IFormValidationSetting setting, Guid key, Guid formKey, Guid ruleKey)
+    {
+        var type = setting.GetType();
+
+        var keyProperty = type.GetProperty(nameof(IFormValidationSetting.Key));
+        keyProperty?.SetValue(setting, key);
+
+        var formProperty = type.GetProperty(nameof(IFormValidationSetting.FormKey));
+        formProperty?.SetValue(setting, formKey);
+
+        var ruleProperty = type.GetProperty(nameof(IFormValidationSetting.RuleKey));
+        ruleProperty?.SetValue(setting, ruleKey);
     }
 
     private object? ParseValue(FormValidationSettingFieldType type, string value) => type switch
     {
         FormValidationSettingFieldType.Value => value,
         FormValidationSettingFieldType.Field => Guid.Parse(value),
-        FormValidationSettingFieldType.DataType => Guid.Parse(value),
+        FormValidationSettingFieldType.DataType => Guid.Empty,
         FormValidationSettingFieldType.Toggle => bool.Parse(value),
         _ => throw new NotSupportedException("Field type is not supported"),
     };
 
     public FormValidationSettingDto Create(IFormValidationSetting setting)
     {
-        var definition = JsonSerializer.Serialize(setting);
+        var definition = JsonConvert.SerializeObject(setting);
 
         return new FormValidationSettingDto
         {

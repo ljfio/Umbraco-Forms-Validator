@@ -10,8 +10,10 @@ namespace Our.Umbraco.Forms.Validator.Core.Settings;
 [DataContract]
 public class FormValidationSetting : EntityBase, IFormValidationSetting
 {
+    [IgnoreDataMember]
     public Guid FormKey { get; set; }
     
+    [IgnoreDataMember]
     public Guid RuleKey { get; set; }
 
     [DataMember]
