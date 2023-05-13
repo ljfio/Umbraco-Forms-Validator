@@ -3,15 +3,32 @@
 
     function FormsValidatorEditorController($scope, eventsService, editorService) {
         var vm = this;
-        
+
         vm.selectedRule = null;
-        vm.values = {};
+
+        var resetValues = function () {
+            vm.selection = {};
+            vm.values = {};
+
+            if (vm.selectedRule) {
+                vm.selectedRule
+                    .settingFields
+                    .forEach(field => {
+                        if (field.type === 'toggle')
+                            vm.values[field.alias] = false;
+                        else
+                            vm.values[field.alias] = null;
+                    });
+            }
+        };
+
+        resetValues();
 
         vm.submit = function () {
             if ($scope.model.submit) {
                 $scope.model.rule = vm.selectedRule;
                 $scope.model.values = vm.values;
-                
+
                 $scope.model.submit($scope.model);
             }
         }
@@ -28,17 +45,10 @@
                 size: "small",
                 view: "/App_Plugins/FormsValidator/views/rulePicker.html",
                 submit: function (model) {
-                    vm.values = {};
                     vm.selectedRule = model.rule;
 
-                    model.rule.settingFields
-                        .forEach(field => {
-                            if (field.type === 'toggle')
-                                vm.values[field.alias] = false;
-                            else
-                                vm.values[field.alias] = null;
-                        })
-                    
+                    resetValues();
+
                     editorService.close();
                 },
                 close: function () {
@@ -50,8 +60,7 @@
         }
 
         vm.removeSelectedRule = function () {
-            vm.selectedRule = null;
-            vm.values = {};
+            resetValues();
         }
 
         vm.openFieldPicker = function (alias) {
@@ -60,8 +69,9 @@
                 size: "small",
                 view: "/App_Plugins/FormsValidator/views/fieldPicker.html",
                 submit: function (model) {
-                    vm.values[alias] = model.field;
-                    
+                    vm.selection[alias] = model.field;
+                    vm.values[alias] = model.field.id;
+
                     editorService.close();
                 },
                 close: function () {
@@ -75,8 +85,8 @@
         vm.toggleValue = function (alias) {
             vm.values[alias] = !vm.values[alias];
         }
-        
-        vm.removeValue = function(alias) {
+
+        vm.removeValue = function (alias) {
             delete vm.values[alias];
         }
     }
