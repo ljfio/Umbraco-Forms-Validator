@@ -20,7 +20,7 @@
         vm.newSetting = function () {
             var options = {
                 title: "Rule settings",
-                size: "small",
+                size: "medium",
                 view: "/App_Plugins/FormsValidator/views/ruleSettingEditor.html",
                 submit: function (model) {
                     vm.settings.push({

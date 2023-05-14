@@ -1,88 +1,79 @@
 <div ng-controller="FormsValidator.SettingEditor as vm">
     <umb-editor-view>
-        <umb-editor-header
-                name="model.title"
-                name-locked="true"
-                hide-alias="true"
-                hide-icon="true"
-                hide-description="true">
+        <umb-editor-header name="model.title"
+                           name-locked="true"
+                           hide-alias="true"
+                           hide-icon="true"
+                           hide-description="true">
         </umb-editor-header>
 
         <umb-editor-container>
             <umb-box>
-                <umb-box-content>
-                    <umb-control-group
-                            label="Rule"
-                            description="The rule to apply"
-                            required>
-                        <umb-button
-                                ng-if="!vm.selectedRule"
-                                action="vm.openRulePicker()"
-                                type="button"
-                                button-style="[placeholder,block]"
-                                label="Select rule">
+                <umb-box-content class="form-horizontal">
+                    <umb-control-group label="Rule"
+                                       description="The rule to apply"
+                                       required>
+                        <umb-button ng-if="!vm.selectedRule"
+                                    action="vm.openRulePicker()"
+                                    type="button"
+                                    button-style="[placeholder,block]"
+                                    label="Select rule">
                         </umb-button>
 
-                        <umb-node-preview
-                                ng-if="vm.selectedRule"
-                                allow-edit="true"
-                                allow-remove="true"
-                                on-edit="vm.openRulePicker()"
-                                on-remove="vm.removeSelectedRule()"
-                                name="vm.selectedRule.name"
-                                description="vm.selectedRule.description"
-                                icon="vm.selectedRule.icon"
-                                single>
+                        <umb-node-preview ng-if="vm.selectedRule"
+                                          allow-edit="true"
+                                          allow-remove="true"
+                                          on-edit="vm.openRulePicker()"
+                                          on-remove="vm.removeSelectedRule()"
+                                          name="vm.selectedRule.name"
+                                          description="vm.selectedRule.description"
+                                          icon="vm.selectedRule.icon"
+                                          single>
                         </umb-node-preview>
                     </umb-control-group>
 
-                    <umb-control-group
-                            ng-if="vm.selectedRule"
-                            ng-repeat="field in vm.selectedRule.settingFields"
-                            label="{{ field.name }}"
-                            description="{{ field.description }}"
-                            required>
+                    <umb-control-group ng-if="vm.selectedRule"
+                                       ng-repeat="field in vm.selectedRule.settingFields"
+                                       label="{{ field.name }}"
+                                       description="{{ field.description }}"
+                                       required>
                         <div ng-if="field.type === 'field'">
-                            <umb-button
-                                    ng-if="!vm.values[field.alias]"
-                                    action="vm.openFieldPicker(field.alias)"
-                                    type="button"
-                                    button-style="[placeholder,block]"
-                                    label="Select field">
+                            <umb-button ng-if="!vm.values[field.alias]"
+                                        action="vm.openFieldPicker(field.alias)"
+                                        type="button"
+                                        button-style="[placeholder,block]"
+                                        label="Select field">
                             </umb-button>
 
-                            <umb-node-preview
-                                    ng-if="vm.values[field.alias]"
-                                    allow-edit="true"
-                                    allow-remove="true"
-                                    on-edit="vm.openFieldPicker(field.alias)"
-                                    on-remove="vm.removeValue(field.alias)"
-                                    name="vm.selection[field.alias].alias"
-                                    description="vm.selection[field.alias].caption"
-                                    icon="vm.selection[field.alias].$fieldType.icon"
-                                    single>
+                            <umb-node-preview ng-if="vm.values[field.alias]"
+                                              allow-edit="true"
+                                              allow-remove="true"
+                                              on-edit="vm.openFieldPicker(field.alias)"
+                                              on-remove="vm.removeValue(field.alias)"
+                                              name="vm.selection[field.alias].alias"
+                                              description="vm.selection[field.alias].caption"
+                                              icon="vm.selection[field.alias].$fieldType.icon"
+                                              single>
                             </umb-node-preview>
                         </div>
 
                         <div ng-if="field.type === 'value'">
                             <input type="text"
                                    ng-value="vm.values[field.alias]"
-                                   class="-full-width-input"/>
+                                   class="-full-width-input" />
                         </div>
 
                         <div ng-if="field.type === 'dataType'">
-                            <umb-button
-                                    action="vm.openFieldPicker(field.alias)"
-                                    type="button"
-                                    button-style="[placeholder,block]"
-                                    label="Select data type">
+                            <umb-button action="vm.openFieldPicker(field.alias)"
+                                        type="button"
+                                        button-style="[placeholder,block]"
+                                        label="Select data type">
                             </umb-button>
                         </div>
 
                         <div ng-if="field.type === 'toggle'">
-                            <umb-toggle
-                                    checked="vm.values[field.alias]"
-                                    on-click="vm.toggleValue(field.alias)">
+                            <umb-toggle checked="vm.values[field.alias]"
+                                        on-click="vm.toggleValue(field.alias)">
                             </umb-toggle>
                         </div>
                     </umb-control-group>
@@ -92,18 +83,16 @@
 
         <umb-editor-footer>
             <umb-editor-footer-content-right>
-                <umb-button
-                        action="vm.close()"
-                        type="button"
-                        button-style="link"
-                        label="Close">
+                <umb-button action="vm.close()"
+                            type="button"
+                            button-style="link"
+                            label="Close">
                 </umb-button>
 
-                <umb-button
-                        action="vm.submit()"
-                        type="button"
-                        button-style="success"
-                        label="Submit">
+                <umb-button action="vm.submit()"
+                            type="button"
+                            button-style="success"
+                            label="Submit">
                 </umb-button>
             </umb-editor-footer-content-right>
         </umb-editor-footer>
