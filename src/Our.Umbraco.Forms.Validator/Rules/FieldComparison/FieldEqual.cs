@@ -16,13 +16,11 @@ public class FieldEqual : FieldComparisonRule
         Icon = "icon-equals";
     }
 
-    public override bool Validate(FormValue current, FormValue compare, FormValidationContext context)
+    public override void Validate(FormValue current, FormValue compare, FormValidationContext context)
     {
         if (!string.Equals(current.Value, compare.Value))
         {
             context.Collector.AddValidationError(current, "Values do not match");
         }
-
-        return false;
     }
 }

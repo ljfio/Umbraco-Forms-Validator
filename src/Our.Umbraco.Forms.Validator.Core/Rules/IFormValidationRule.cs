@@ -9,5 +9,5 @@ public interface IFormValidationRule
     string Name { get; }
     string Description { get; }
     string Icon { get; }
-    bool Validate(FormValidationContext context);
+    void Validate(FormValidationContext context);
 }

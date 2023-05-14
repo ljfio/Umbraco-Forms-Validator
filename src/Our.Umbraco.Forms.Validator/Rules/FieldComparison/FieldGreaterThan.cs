@@ -16,7 +16,7 @@ public class FieldGreaterThan : FieldComparisonRule
         Icon = "icon-greater-than";
     }
 
-    public override bool Validate(FormValue current, FormValue compare, FormValidationContext context)
+    public override void Validate(FormValue current, FormValue compare, FormValidationContext context)
     {
         throw new NotImplementedException();
     }

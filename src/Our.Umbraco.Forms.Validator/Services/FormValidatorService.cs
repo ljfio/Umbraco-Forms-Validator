@@ -30,9 +30,9 @@ public sealed class FormValidatorService : IFormValidatorService
         {
             var validationContext = new FormValidationContext(form, rule.Setting, context.Request, provider, collector);
             
-            bool isValid = rule.Rule.Validate(validationContext);
+            rule.Rule.Validate(validationContext);
             
-            if (!isValid && rule.Setting.StopProcessing) 
+            if (!validationContext.IsValid && rule.Setting.StopProcessing) 
                 break;
         }
         

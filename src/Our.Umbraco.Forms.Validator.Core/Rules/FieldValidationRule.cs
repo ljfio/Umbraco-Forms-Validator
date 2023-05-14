@@ -12,7 +12,7 @@ public abstract class FieldValidationRule : FormValidationRule, IFormValidationR
         SettingType = typeof(FieldValidationSetting);
     }
 
-    bool IFormValidationRule.Validate(FormValidationContext context)
+    void IFormValidationRule.Validate(FormValidationContext context)
     {
         if (context.Setting is not FieldValidationSetting setting)
             throw new InvalidOperationException();
@@ -20,15 +20,15 @@ public abstract class FieldValidationRule : FormValidationRule, IFormValidationR
         var field = context.Provider.GetFormValue(setting.FieldId);
 
         if (field is null)
-            return false;
+            return;
 
-        return Validate(field, context);
+        Validate(field, context);
     }
 
-    public override bool Validate(FormValidationContext context)
+    public override void Validate(FormValidationContext context)
     {
         throw new InvalidOperationException();
     }
 
-    public abstract bool Validate(FormValue value, FormValidationContext context);
+    public abstract void Validate(FormValue value, FormValidationContext context);
 }

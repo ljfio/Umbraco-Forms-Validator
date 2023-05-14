@@ -48,7 +48,7 @@ public class RuleCollectionTests
             Id = _expectedId;
         }
 
-        public override bool Validate(FormValidationContext context)
+        public override void Validate(FormValidationContext context)
         {
             throw new NotImplementedException();
         }

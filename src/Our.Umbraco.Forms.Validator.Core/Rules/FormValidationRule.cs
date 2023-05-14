@@ -16,11 +16,11 @@ public abstract class FormValidationRule : IFormValidationRule
     public string Icon { get; protected init; }
 
     public Type SettingType { get; protected init; } = typeof(FormValidationSetting);
-
-    bool IFormValidationRule.Validate(FormValidationContext context)
+    
+    void IFormValidationRule.Validate(FormValidationContext context)
     {
-        return Validate(context);
+        Validate(context);
     }
 
-    public abstract bool Validate(FormValidationContext context);
+    public abstract void Validate(FormValidationContext context);
 }

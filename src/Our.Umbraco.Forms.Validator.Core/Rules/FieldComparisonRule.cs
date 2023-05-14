@@ -12,7 +12,7 @@ public abstract class FieldComparisonRule : FormValidationRule, IFormValidationR
         SettingType = typeof(FieldComparisonSetting);
     }
 
-    bool IFormValidationRule.Validate(FormValidationContext context)
+    void IFormValidationRule.Validate(FormValidationContext context)
     {
         if (context.Setting is not FieldComparisonSetting setting)
             throw new InvalidOperationException();
@@ -21,15 +21,15 @@ public abstract class FieldComparisonRule : FormValidationRule, IFormValidationR
         var compare = context.Provider.GetFormValue(setting.CompareToFieldId);
 
         if (current is null || compare is null)
-            return false;
+            return;
 
-        return Validate(current, compare, context);
+        Validate(current, compare, context);
     }
 
-    public override bool Validate(FormValidationContext context)
+    public override void Validate(FormValidationContext context)
     {
         throw new InvalidOperationException();
     }
 
-    public abstract bool Validate(FormValue current, FormValue compare, FormValidationContext context);
+    public abstract void Validate(FormValue current, FormValue compare, FormValidationContext context);
 }

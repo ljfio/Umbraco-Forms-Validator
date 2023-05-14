@@ -32,4 +32,6 @@ public sealed class FormValidationContext
     public FormValidationCollector Collector { get; }
 
     public FormValueProvider Provider { get; }
+
+    public bool IsValid => Collector.IsValid;
 }

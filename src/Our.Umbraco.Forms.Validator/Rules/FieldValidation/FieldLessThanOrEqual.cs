@@ -16,7 +16,7 @@ public class FieldLessThanOrEqual : FieldValidationRule
         Icon = "icon-less-than-equal";
     }
 
-    public override bool Validate(FormValue value, FormValidationContext context)
+    public override void Validate(FormValue value, FormValidationContext context)
     {
         throw new NotImplementedException();
     }

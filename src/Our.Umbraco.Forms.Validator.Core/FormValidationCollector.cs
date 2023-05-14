@@ -20,4 +20,6 @@ public sealed class FormValidationCollector
     {
         _errors.Add(new FormValidationError(field, message));
     }
+
+    public bool IsValid => !_errors.Any();
 }

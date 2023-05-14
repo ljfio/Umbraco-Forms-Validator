@@ -16,7 +16,7 @@ public class FieldRequired : FieldValidationRule
         Icon = "icon-asterisk";
     }
 
-    public override bool Validate(FormValue value, FormValidationContext context)
+    public override void Validate(FormValue value, FormValidationContext context)
     {
         throw new NotImplementedException();
     }

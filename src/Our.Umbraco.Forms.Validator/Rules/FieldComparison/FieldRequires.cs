@@ -16,7 +16,7 @@ public class FieldRequires : FieldComparisonRule
         Icon = "icon-asterisk";
     }
 
-    public override bool Validate(FormValue current, FormValue compare, FormValidationContext context)
+    public override void Validate(FormValue current, FormValue compare, FormValidationContext context)
     {
         throw new NotImplementedException();
     }
