@@ -13,8 +13,12 @@
             // }
         ];
 
-        vm.editSetting = function () {
+        vm.selectSetting = function (setting) {
+            debugger;
+        }
 
+        vm.editSetting = function (setting) {
+            debugger;
         }
 
         vm.newSetting = function () {
@@ -45,10 +49,25 @@
         }
 
         if (!$routeParams.create) {
-            formsValidatorResource.getSettings($routeParams.id)
-                .then(function (settings) {
-                    vm.settings = settings;
-                });
+            formsValidatorResource.getAllRules()
+                .then(rules => {
+                    formsValidatorResource.getSettings($routeParams.id)
+                        .then(settings => {
+                            vm.settings = settings.map(setting => {
+                                const [rule] = rules.filter(rule => rule.id == setting.rule);
+
+                                return {
+                                    name: rule.name,
+                                    description: rule.description,
+                                    icon: rule.icon,
+                                    data: {
+                                        ...setting,
+                                    },
+                                    selected: false
+                                };
+                            });
+                        });
+                })
         }
 
         var unsubscribe = eventsService.on('umbracoForms.saved', function (event, args) {
