@@ -39,6 +39,8 @@ public sealed class FormValidationSettingService : IFormValidationSettingService
         
         var settings = _repository.Get(scope);
 
+        scope.Complete();
+
         foreach (var setting in settings)
         {
             AddToCache(setting);
@@ -47,7 +49,11 @@ public sealed class FormValidationSettingService : IFormValidationSettingService
 
     public void Add(IFormValidationSetting setting)
     {
+        using var scope = _scopeProvider.CreateScope();
+        
         _repository.Save(setting);
+        
+        scope.Complete();
 
         AddToCache(setting);
     }
