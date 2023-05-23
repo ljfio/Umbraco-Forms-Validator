@@ -60,6 +60,7 @@
         }
 
         vm.removeSelectedRule = function () {
+            vm.selectedRule = null;
             resetValues();
         }
 
