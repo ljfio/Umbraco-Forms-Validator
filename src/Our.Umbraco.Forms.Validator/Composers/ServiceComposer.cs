@@ -25,6 +25,7 @@ public class ServiceComposer : IComposer
             .AddSingleton<IFormValidatorService>(provider =>
             {
                 var settingsService = provider.GetRequiredService<IFormValidationSettingService>();
+                settingsService.Load();
                 return new FormValidatorService(settingsService);
             });
     }
