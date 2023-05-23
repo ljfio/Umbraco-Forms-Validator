@@ -2,7 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using Microsoft.Extensions.DependencyInjection;
+using Our.Umbraco.Forms.Validator.Core.Factories;
 using Our.Umbraco.Forms.Validator.Core.Services;
+using Our.Umbraco.Forms.Validator.Factories;
 using Our.Umbraco.Forms.Validator.Persistence.Repositories;
 using Our.Umbraco.Forms.Validator.Services;
 using Umbraco.Cms.Core.Composing;

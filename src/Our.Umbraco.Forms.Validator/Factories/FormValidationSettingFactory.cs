@@ -3,13 +3,13 @@
 
 using System.Reflection;
 using Newtonsoft.Json;
+using Our.Umbraco.Forms.Validator.Core.Factories;
 using Our.Umbraco.Forms.Validator.Core.Rules;
-using Our.Umbraco.Forms.Validator.Core.Services;
 using Our.Umbraco.Forms.Validator.Core.Settings;
 using Our.Umbraco.Forms.Validator.Persistence.Dtos;
 using Umbraco.Extensions;
 
-namespace Our.Umbraco.Forms.Validator.Services;
+namespace Our.Umbraco.Forms.Validator.Factories;
 
 public class FormValidationSettingFactory : IFormValidationSettingFactory, IPersistedFormValidationSettingFactory
 {

@@ -3,7 +3,7 @@
 
 using Our.Umbraco.Forms.Validator.Core.Settings;
 
-namespace Our.Umbraco.Forms.Validator.Core.Services;
+namespace Our.Umbraco.Forms.Validator.Core.Factories;
 
 public interface IFormValidationSettingFactory
 {
