@@ -9,7 +9,7 @@ public class RuleCollectionTests
 {
     private readonly FormValidationRuleCollection _collection;
 
-    private static readonly Guid _expectedId = new("8DFB2E11-E525-4354-BEF0-67DAFE1E4559");
+    private static readonly Guid ExpectedId = new("8DFB2E11-E525-4354-BEF0-67DAFE1E4559");
 
     public RuleCollectionTests()
     {
@@ -36,16 +36,16 @@ public class RuleCollectionTests
     [Fact]
     public void ItemHasExpectedId()
     {
-        var item = _collection[_expectedId];
+        var item = _collection[ExpectedId];
         
-        Assert.Equal(_expectedId, item.Id);
+        Assert.Equal(ExpectedId, item.Id);
     }
     
     private class ExampleRule : FormValidationRule
     {
         public ExampleRule()
         {
-            Id = _expectedId;
+            Id = ExpectedId;
         }
 
         public override void Validate(FormValidationContext context)
