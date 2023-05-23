@@ -5,13 +5,13 @@ using Umbraco.Cms.Core.Composing;
 
 namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
-public class FormValidationRuleCollection : BuilderCollectionBase<FormValidationRule>
+public class FormValidationRuleCollection : BuilderCollectionBase<IFormValidationRule>
 {
-    public FormValidationRuleCollection(Func<IEnumerable<FormValidationRule>> items) : base(items)
+    public FormValidationRuleCollection(Func<IEnumerable<IFormValidationRule>> items) : base(items)
     {
     }
 
-    public FormValidationRule this[Guid guid]
+    public IFormValidationRule this[Guid guid]
     {
         get
         {

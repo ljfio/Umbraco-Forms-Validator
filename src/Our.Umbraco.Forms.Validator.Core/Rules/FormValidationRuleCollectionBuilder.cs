@@ -5,7 +5,7 @@ using Umbraco.Cms.Core.Composing;
 
 namespace Our.Umbraco.Forms.Validator.Core.Rules;
 
-public class FormValidationRuleCollectionBuilder : LazyCollectionBuilderBase<FormValidationRuleCollectionBuilder, FormValidationRuleCollection, FormValidationRule>
+public class FormValidationRuleCollectionBuilder : LazyCollectionBuilderBase<FormValidationRuleCollectionBuilder, FormValidationRuleCollection, IFormValidationRule>
 {
     protected override FormValidationRuleCollectionBuilder This => this;
 }
