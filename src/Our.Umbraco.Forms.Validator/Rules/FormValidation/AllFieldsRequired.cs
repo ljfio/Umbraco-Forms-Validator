@@ -18,6 +18,12 @@ public class AllFieldsRequired : FormValidationRule
 
     public override void Validate(FormValidationContext context)
     {
-        throw new NotImplementedException();
+        foreach (var field in context.Form.AllFields)
+        {
+            var formValue = context.Provider.GetFormValue(field);
+            
+            if (string.IsNullOrEmpty(formValue.Value))
+                context.Collector.AddValidationError(formValue, "Required");
+        }
     }
 }
