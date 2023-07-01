@@ -7,10 +7,10 @@
         vm.settings = [];
 
         vm.settingsProperties = [
-            // {
-            //     "alias": "field",
-            //     "header": "Field"
-            // }
+            {
+                "alias": "description",
+                "header": "Description"
+            },
         ];
 
         vm.selectSetting = function (setting) {
