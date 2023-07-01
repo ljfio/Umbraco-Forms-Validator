@@ -2,11 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using Our.Umbraco.Forms.Validator.Core.Rules;
-using Our.Umbraco.Forms.Validator.Core.Settings;
 
-namespace Our.Umbraco.Forms.Validator.Settings;
+namespace Our.Umbraco.Forms.Validator.Core.Settings;
 
-public class FormValidationRuleWithSetting : IFormValidationRuleWithSetting
+public sealed class FormValidationRuleWithSetting : IFormValidationRuleWithSetting
 {
     public FormValidationRuleWithSetting(IFormValidationRule rule, IFormValidationSetting setting)
     {

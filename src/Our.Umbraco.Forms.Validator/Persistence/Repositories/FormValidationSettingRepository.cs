@@ -58,9 +58,7 @@ internal sealed class FormValidationSettingRepository : EntityRepositoryBase<Gui
 
         var translator = new SqlTranslator<IFormValidationSetting>(sql, query);
 
-        var translatedSql = translator.Translate();
-
-        var rows = Database.Fetch<FormValidationSettingDto>(translatedSql);
+        var rows = Database.Fetch<FormValidationSettingDto>(translator.Translate());
 
         return rows
             .Select(setting => _settingFactory.Create(setting.Key, setting.FormKey, setting.RuleKey, setting.Type, setting.Definition))

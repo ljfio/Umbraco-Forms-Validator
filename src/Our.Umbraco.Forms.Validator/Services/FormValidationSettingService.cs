@@ -1,96 +1,95 @@
 // Copyright 2023 Luke Fisher
 // SPDX-License-Identifier: Apache-2.0
 
-using System.Collections.ObjectModel;
-using Our.Umbraco.Forms.Validator.Core.Extensions;
-using Our.Umbraco.Forms.Validator.Core.Rules;
+using Microsoft.Extensions.Logging;
 using Our.Umbraco.Forms.Validator.Core.Services;
 using Our.Umbraco.Forms.Validator.Core.Settings;
 using Our.Umbraco.Forms.Validator.Persistence.Repositories;
-using Our.Umbraco.Forms.Validator.Settings;
-using Umbraco.Cms.Infrastructure.Scoping;
-using Umbraco.Forms.Core.Models;
+using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Events;
+using Umbraco.Cms.Core.Scoping;
+using Umbraco.Cms.Core.Services;
 
 namespace Our.Umbraco.Forms.Validator.Services;
 
-public sealed class FormValidationSettingService : IFormValidationSettingService
+public sealed class FormValidationSettingService : RepositoryService, IFormValidationSettingService
 {
-    private readonly FormValidationRuleCollection _rules;
-    private readonly IScopeProvider _scopeProvider;
     private readonly IFormValidationSettingRepository _repository;
 
-    private readonly IDictionary<Guid, IList<IFormValidationRuleWithSetting>> _cache;
-
     public FormValidationSettingService(
-        FormValidationRuleCollection rules,
-        IScopeProvider scopeProvider,
-        IFormValidationSettingRepository repository)
+        ICoreScopeProvider provider,
+        ILoggerFactory loggerFactory,
+        IEventMessagesFactory eventMessagesFactory,
+        IFormValidationSettingRepository repository) :
+        base(
+            provider,
+            loggerFactory,
+            eventMessagesFactory)
     {
-        _rules = rules;
-        _scopeProvider = scopeProvider;
         _repository = repository;
-
-        _cache = new Dictionary<Guid, IList<IFormValidationRuleWithSetting>>();
     }
 
-    public void Load()
+    #region Get
+
+    public IEnumerable<IFormValidationSetting> Get()
     {
-        using var scope = _scopeProvider.CreateScope();
-        
-        var settings = _repository.Get(scope);
+        using var scope = ScopeProvider.CreateCoreScope(autoComplete: true);
 
-        scope.Complete();
+        var query = Query<IFormValidationSetting>();
 
-        foreach (var setting in settings)
-        {
-            AddToCache(setting);
-        }
+        return _repository.Get(query);
     }
 
-    public void Add(IFormValidationSetting setting)
+    public IFormValidationSetting? Get(Guid key)
     {
-        using var scope = _scopeProvider.CreateScope();
-        
+        using var scope = ScopeProvider.CreateCoreScope(autoComplete: true);
+
+        return _repository.Get(key);
+    }
+
+    public IEnumerable<IFormValidationSetting> GetByForm(Guid key)
+    {
+        using var scope = ScopeProvider.CreateCoreScope(autoComplete: true);
+
+        var query = Query<IFormValidationSetting>()
+            .Where(setting => setting.FormKey == key);
+
+        return _repository.Get(query);
+    }
+
+    #endregion
+
+    #region Save
+
+    public Attempt<OperationResult?> Save(IFormValidationSetting setting)
+    {
+        using var scope = ScopeProvider.CreateCoreScope();
+
+        var eventMessages = EventMessagesFactory.Get();
+
         _repository.Save(setting);
-        
+
         scope.Complete();
 
-        AddToCache(setting);
+        return OperationResult.Attempt.Succeed(eventMessages);
     }
 
-    public IEnumerable<IFormValidationRuleWithSetting> RulesFor(Form form)
+    #endregion
+
+    #region Delete
+
+    public Attempt<OperationResult?> Delete(IFormValidationSetting setting)
     {
-        if (_cache.TryGetValue(form.Id, out var foundCache))
-        {
-            return new ReadOnlyCollection<IFormValidationRuleWithSetting>(foundCache);
-        }
-        
-        return Enumerable.Empty<IFormValidationRuleWithSetting>();
-    }
-    
-    private void AddToCache(IFormValidationSetting setting)
-    {
-        var rule = _rules[setting.RuleKey];
+        using var scope = ScopeProvider.CreateCoreScope();
 
-        var rules = GetCacheForForm(setting.FormKey);
+        var eventMessages = EventMessagesFactory.Get();
 
-        var existing = rules.SingleOrDefault(r => r.Setting.Id == setting.Id);
+        _repository.Delete(setting);
 
-        if (existing is not null)
-        {
-            rules.Remove(existing);
-        }
+        scope.Complete();
 
-        rules.Add(new FormValidationRuleWithSetting(rule, setting));
+        return OperationResult.Attempt.Succeed(eventMessages);
     }
 
-    private IList<IFormValidationRuleWithSetting> GetCacheForForm(Guid id)
-    {
-        if (!_cache.ContainsKey(id))
-        {
-            _cache.Add(id, new List<IFormValidationRuleWithSetting>());
-        }
-
-        return _cache[id];
-    }
+    #endregion
 }

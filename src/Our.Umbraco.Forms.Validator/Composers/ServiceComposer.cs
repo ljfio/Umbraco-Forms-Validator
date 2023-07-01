@@ -22,11 +22,6 @@ public class ServiceComposer : IComposer
             .AddSingleton<IPersistedFormValidationSettingFactory, FormValidationSettingFactory>()
             .AddSingleton<IFormValidationSettingRepository, FormValidationSettingRepository>()
             .AddSingleton<IFormValidationSettingService, FormValidationSettingService>()
-            .AddSingleton<IFormValidatorService>(provider =>
-            {
-                var settingsService = provider.GetRequiredService<IFormValidationSettingService>();
-                settingsService.Load();
-                return new FormValidatorService(settingsService);
-            });
+            .AddSingleton<IFormValidatorService, FormValidatorService>();
     }
 }

@@ -2,13 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using Our.Umbraco.Forms.Validator.Core.Settings;
-using Umbraco.Forms.Core.Models;
+using Umbraco.Cms.Core;
+using Umbraco.Cms.Core.Services;
 
 namespace Our.Umbraco.Forms.Validator.Core.Services;
 
-public interface IFormValidationSettingService
+public interface IFormValidationSettingService : IService
 {
-    void Add(IFormValidationSetting setting);
-    IEnumerable<IFormValidationRuleWithSetting> RulesFor(Form form);
-    void Load();
+    IEnumerable<IFormValidationSetting> Get();
+    IFormValidationSetting? Get(Guid key);
+    IEnumerable<IFormValidationSetting> GetByForm(Guid key);
+    Attempt<OperationResult?> Save(IFormValidationSetting setting);
+    Attempt<OperationResult?> Delete(IFormValidationSetting setting);
 }

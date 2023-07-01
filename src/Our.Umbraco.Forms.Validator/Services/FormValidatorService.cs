@@ -12,11 +12,11 @@ namespace Our.Umbraco.Forms.Validator.Services;
 
 public sealed class FormValidatorService : IFormValidatorService
 {
-    private readonly IFormValidationSettingService _settingService;
+    private readonly FormValidationRuleProvider _ruleProvider;
 
-    public FormValidatorService(IFormValidationSettingService settingService)
+    public FormValidatorService(FormValidationRuleProvider ruleProvider)
     {
-        _settingService = settingService;
+        _ruleProvider = ruleProvider;
     }
 
     public void Validate(Form form, HttpContext context, ModelStateDictionary modelState)
@@ -24,7 +24,7 @@ public sealed class FormValidatorService : IFormValidatorService
         var collector = new FormValidationCollector();
         var provider = new FormValueProvider(form, context.Request);
         
-        var rules = _settingService.RulesFor(form);
+        var rules = _ruleProvider.RulesFor(form);
 
         foreach (var rule in rules)
         {
