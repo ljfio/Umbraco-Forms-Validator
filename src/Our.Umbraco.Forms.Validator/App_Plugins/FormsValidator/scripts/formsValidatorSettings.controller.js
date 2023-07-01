@@ -47,8 +47,8 @@
 
             editorService.open(options);
         }
-
-        if (!$routeParams.create) {
+        
+        const getAllRules = function() {
             formsValidatorResource.getAllRules()
                 .then(rules => {
                     formsValidatorResource.getSettings($routeParams.id)
@@ -67,7 +67,11 @@
                                 };
                             });
                         });
-                })
+                });
+        }
+
+        if (!$routeParams.create) {
+            getAllRules();
         }
 
         var unsubscribe = eventsService.on('umbracoForms.saved', function (event, args) {
@@ -75,7 +79,10 @@
 
             var settings = vm.settings.map(setting => setting.data);
 
-            formsValidatorResource.saveSettings(args.id, settings);
+            formsValidatorResource.saveSettings(args.id, settings)
+                .then(() => {
+                   getAllRules(); 
+                });
         });
 
         $scope.$on("$destroy", function () {
