@@ -1,14 +1,11 @@
 // Copyright 2023 Luke Fisher
 // SPDX-License-Identifier: Apache-2.0
 
-using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
-using Our.Umbraco.Forms.Validator.Core.Settings;
+using Our.Umbraco.Forms.Validator.Core.Services;
 using Our.Umbraco.Forms.Validator.Factories;
 using Our.Umbraco.Forms.Validator.Models;
-using Our.Umbraco.Forms.Validator.Persistence.Repositories;
-using Our.Umbraco.Forms.Validator.Services;
-using Umbraco.Cms.Infrastructure.Scoping;
+using Umbraco.Cms.Core.Mapping;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.Common.Attributes;
 using Umbraco.Extensions;
@@ -18,18 +15,18 @@ namespace Our.Umbraco.Forms.Validator.Controllers;
 [PluginController("FormsValidator")]
 public class SettingController : UmbracoAuthorizedJsonController
 {
-    private readonly IScopeProvider _scopeProvider;
-    private readonly IFormValidationSettingRepository _repository;
+    private readonly IFormValidationSettingService _settingService;
     private readonly IPersistedFormValidationSettingFactory _factory;
+    private readonly IUmbracoMapper _umbracoMapper;
 
     public SettingController(
-        IScopeProvider scopeProvider,
-        IFormValidationSettingRepository repository,
-        IPersistedFormValidationSettingFactory factory)
+        IFormValidationSettingService settingService,
+        IPersistedFormValidationSettingFactory factory,
+        IUmbracoMapper umbracoMapper)
     {
-        _scopeProvider = scopeProvider;
-        _repository = repository;
+        _settingService = settingService;
         _factory = factory;
+        _umbracoMapper = umbracoMapper;
     }
 
     [HttpPost]
@@ -37,19 +34,15 @@ public class SettingController : UmbracoAuthorizedJsonController
         [FromQuery] Guid id,
         [FromBody] IEnumerable<SettingModel> settings)
     {
-        using var scope = _scopeProvider.CreateScope();
+        var entities = settings
+            .Select(setting => _factory.Create(setting.Id, id, setting.RuleId, setting.Values))
+            .WhereNotNull()
+            .ToList();
 
-        foreach (var setting in settings)
+        foreach (var entity in entities)
         {
-            var entity = _factory.Create(setting.Id, id, setting.RuleId, setting.Values);
-
-            if (entity is null)
-                continue;
-
-            _repository.Save(entity);
+            _settingService.Save(entity);
         }
-
-        scope.Complete();
 
         return Ok();
     }
@@ -57,47 +50,12 @@ public class SettingController : UmbracoAuthorizedJsonController
     [HttpGet]
     public IActionResult Get([FromQuery] Guid id)
     {
-        using var scope = _scopeProvider.CreateScope();
+        var settings = _settingService.GetByForm(id);
 
-        var query = scope.SqlContext.Query<IFormValidationSetting>()
-            .Where(setting => setting.FormKey == id);
-
-        var entities = _repository.Get(query);
-
-        var settings = entities
-            .Select(entity => new SettingModel
-            {
-                Id = entity.Key,
-                RuleId = entity.RuleKey,
-                Values = GetValues(entity),
-            })
+        var mapped = settings
+            .Select(setting => _umbracoMapper.Map<SettingModel>(setting))
             .ToList();
 
-        scope.Complete();
-
-        return Ok(settings);
-    }
-
-    private IDictionary<string, string?> GetValues(IFormValidationSetting entity)
-    {
-        var values = new Dictionary<string, string?>();
-
-        var type = entity.GetType();
-
-        foreach (var property in type.GetProperties())
-        {
-            var attribute = property.GetCustomAttribute<FormValidationSettingFieldAttribute>();
-
-            if (attribute is null)
-                continue;
-
-            string alias = attribute.Alias ?? property.Name.ToFirstLowerInvariant();
-
-            var value = property.GetValue(entity);
-
-            values.Add(alias, value?.ToString());
-        }
-
-        return values;
+        return Ok(mapped);
     }
 }

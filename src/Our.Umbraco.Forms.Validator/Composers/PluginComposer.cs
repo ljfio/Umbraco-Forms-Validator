@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using Our.Umbraco.Forms.Validator.Backoffice;
+using Our.Umbraco.Forms.Validator.Models.Mapping;
 using Our.Umbraco.Forms.Validator.Persistence.Mappers;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
@@ -21,5 +22,9 @@ public class PluginComposer : IComposer
 
         builder.Mappers()?
             .Add<FormValidationSettingMapper>();
+
+        builder.MapDefinitions()
+            .Add<RuleMapDefinition>()
+            .Add<SettingMapDefinition>();
     }
 }

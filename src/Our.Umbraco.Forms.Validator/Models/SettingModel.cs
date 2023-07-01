@@ -9,11 +9,11 @@ namespace Our.Umbraco.Forms.Validator.Models;
 public class SettingModel
 {
     [DataMember(Name = "id")]
-    public Guid Id { get; init; }
+    public Guid Id { get; set; }
 
     [DataMember(Name = "rule")]
-    public Guid RuleId { get; init; }
+    public Guid RuleId { get; set; }
 
     [DataMember(Name = "values")]
-    public IDictionary<string, string?> Values { get; init; } = new Dictionary<string, string?>();
+    public IDictionary<string, string?> Values { get; set; } = new Dictionary<string, string?>();
 }

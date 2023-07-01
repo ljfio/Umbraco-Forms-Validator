@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 using Microsoft.Extensions.DependencyInjection;
-using Our.Umbraco.Forms.Validator.Core.Factories;
+using Our.Umbraco.Forms.Validator.Core;
 using Our.Umbraco.Forms.Validator.Core.Services;
 using Our.Umbraco.Forms.Validator.Factories;
 using Our.Umbraco.Forms.Validator.Persistence.Repositories;
@@ -19,9 +19,10 @@ public class ServiceComposer : IComposer
     public void Compose(IUmbracoBuilder builder)
     {
         builder.Services
-            .AddSingleton<IPersistedFormValidationSettingFactory, FormValidationSettingFactory>()
-            .AddSingleton<IFormValidationSettingRepository, FormValidationSettingRepository>()
-            .AddSingleton<IFormValidationSettingService, FormValidationSettingService>()
-            .AddSingleton<IFormValidatorService, FormValidatorService>();
+            .AddTransient<IPersistedFormValidationSettingFactory, FormValidationSettingFactory>()
+            .AddTransient<IFormValidationSettingRepository, FormValidationSettingRepository>()
+            .AddTransient<IFormValidationSettingService, FormValidationSettingService>()
+            .AddTransient<IFormValidatorService, FormValidatorService>()
+            .AddTransient<FormValidationRuleProvider>();
     }
 }

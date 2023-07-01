@@ -9,17 +9,17 @@ namespace Our.Umbraco.Forms.Validator.Models;
 public class RuleModel
 {
     [DataMember(Name = "id")]
-    public string Id { get; init; }
+    public string Id { get; set; }
     
     [DataMember(Name = "name")]
-    public string Name { get; init; }
+    public string Name { get; set; }
 
     [DataMember(Name = "description")]
-    public string Description { get; init; }
+    public string Description { get; set; }
     
     [DataMember(Name = "icon")] 
-    public string Icon { get; init; }
+    public string Icon { get; set; }
     
     [DataMember(Name = "settingFields")] 
-    public IEnumerable<SettingFieldModel> SettingFields { get; init; }
+    public IEnumerable<SettingFieldModel> SettingFields { get; set; }
 }

@@ -1,14 +1,12 @@
 // Copyright 2023 Luke Fisher
 // SPDX-License-Identifier: Apache-2.0
 
-using System.Reflection;
 using Microsoft.AspNetCore.Mvc;
 using Our.Umbraco.Forms.Validator.Core.Rules;
-using Our.Umbraco.Forms.Validator.Core.Settings;
 using Our.Umbraco.Forms.Validator.Models;
+using Umbraco.Cms.Core.Mapping;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.Common.Attributes;
-using Umbraco.Extensions;
 
 namespace Our.Umbraco.Forms.Validator.Controllers;
 
@@ -16,46 +14,26 @@ namespace Our.Umbraco.Forms.Validator.Controllers;
 public class RuleController : UmbracoAuthorizedJsonController
 {
     private readonly FormValidationRuleCollection _ruleCollection;
+    private readonly IUmbracoMapper _umbracoMapper;
 
-    public RuleController(FormValidationRuleCollection ruleCollection)
+    public RuleController(
+        FormValidationRuleCollection ruleCollection,
+        IUmbracoMapper umbracoMapper)
     {
         _ruleCollection = ruleCollection;
+        _umbracoMapper = umbracoMapper;
     }
 
     [HttpGet]
     public IActionResult GetAll()
     {
-        var rules = _ruleCollection
-            .Select(rule => new RuleModel
-            {
-                Id = rule.Id.ToString(),
-                Name = rule.Name,
-                Icon = rule.Icon,
-                Description = rule.Description,
-                SettingFields = GetFields(rule.SettingType),
-            });
+        var rules = _ruleCollection.ToList();
 
-        return Ok(rules);
+        var mapped = rules
+            .Select(rule => _umbracoMapper.Map<RuleModel>(rule))
+            .ToList();
+        
+        return Ok(mapped);
     }
 
-    private IEnumerable<SettingFieldModel> GetFields(Type ruleSettingType)
-    {
-        var properties = ruleSettingType.GetProperties();
-
-        foreach (var property in properties)
-        {
-            var attribute = property.GetCustomAttribute<FormValidationSettingFieldAttribute>();
-
-            if (attribute is not null)
-            {
-                yield return new SettingFieldModel
-                {
-                    Name = attribute.Name,
-                    Alias = attribute.Alias ?? property.Name.ToFirstLowerInvariant(),
-                    Type = attribute.Type.ToString().ToFirstLowerInvariant(),
-                    Description = attribute.Description
-                };
-            }
-        }
-    }
 }
