@@ -2,12 +2,12 @@
     <umb-editor-sub-header>
         <umb-editor-sub-header-content-right>
             <umb-button
-                    ng-if="vm.selectedSetting"
-                    action="vm.editSetting()"
+                    ng-if="vm.settingSelected"
+                    action="vm.deleteSettings()"
                     type="button"
-                    label="Edit"
-                    icon="icon-pencil"
-                    button-style="outline">
+                    label="Delete"
+                    icon="icon-trash"
+                    button-style="danger">
             </umb-button>
 
             <umb-button

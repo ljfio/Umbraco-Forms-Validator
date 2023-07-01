@@ -5,6 +5,8 @@
         var vm = this;
 
         vm.settings = [];
+        
+        vm.settingSelected = false;
 
         vm.settingsProperties = [
             {
@@ -14,11 +16,23 @@
         ];
 
         vm.selectSetting = function (setting) {
-            debugger;
+            setting.selected = !setting.selected;
+            
+            vm.settingSelected = false;
+            
+            _.each(vm.settings, (e, i) => {
+                if (e.selected) {
+                    vm.settingSelected = true;
+                }
+            });
         }
 
         vm.editSetting = function (setting) {
             debugger;
+        }
+        
+        vm.deleteSettings = function () {
+            
         }
 
         vm.newSetting = function () {
