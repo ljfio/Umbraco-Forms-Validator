@@ -8,7 +8,7 @@ using Umbraco.Cms.Core.Cache;
 using Umbraco.Extensions;
 using Umbraco.Forms.Core.Models;
 
-namespace Our.Umbraco.Forms.Validator.Core;
+namespace Our.Umbraco.Forms.Validator;
 
 public sealed class FormValidationRuleProvider
 {
