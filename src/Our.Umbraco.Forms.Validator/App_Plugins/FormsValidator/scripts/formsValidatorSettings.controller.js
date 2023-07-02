@@ -5,7 +5,8 @@
         var vm = this;
 
         vm.settings = [];
-        
+        vm.deleted = []
+
         vm.settingSelected = false;
 
         vm.settingsProperties = [
@@ -17,9 +18,9 @@
 
         vm.selectSetting = function (setting) {
             setting.selected = !setting.selected;
-            
+
             vm.settingSelected = false;
-            
+
             _.each(vm.settings, (e, i) => {
                 if (e.selected) {
                     vm.settingSelected = true;
@@ -28,11 +29,38 @@
         }
 
         vm.editSetting = function (setting) {
-            debugger;
+            var options = {
+                title: "Rule settings",
+                size: "medium",
+                view: "/App_Plugins/FormsValidator/views/ruleSettingEditor.html",
+                selected: setting,
+                submit: function (model) {
+                    setting.name = model.rule.name;
+                    setting.description = model.rule.description;
+                    setting.icon = model.rule.icon;
+                    setting.data = {
+                        rule: model.rule.id,
+                        values: model.values,
+                    };
+
+                    editorService.close();
+                },
+                close: function () {
+                    editorService.close();
+                }
+            };
+
+            editorService.open(options);
         }
-        
+
         vm.deleteSettings = function () {
-            
+            _.each(vm.settings, (e, i) => {
+                if (e.selected){
+                    e.data.deleted = true;
+                    vm.deleted.push(e);
+                    vm.settings.remove(e);
+                }
+            });
         }
 
         vm.newSetting = function () {
@@ -61,12 +89,13 @@
 
             editorService.open(options);
         }
-        
-        const getAllRules = function() {
+
+        const getAllRules = function () {
             formsValidatorResource.getAllRules()
                 .then(rules => {
                     formsValidatorResource.getSettings($routeParams.id)
                         .then(settings => {
+                            vm.deleted = [];
                             vm.settings = settings.map(setting => {
                                 const [rule] = rules.filter(rule => rule.id == setting.rule);
 
@@ -91,11 +120,14 @@
         var unsubscribe = eventsService.on('umbracoForms.saved', function (event, args) {
             debugger;
 
-            var settings = vm.settings.map(setting => setting.data);
+            var deleted = vm.deleted.map(setting => setting.data);
+            var visible = vm.settings.map(setting => setting.data);
+            
+            var settings = deleted.concat(visible);
 
             formsValidatorResource.saveSettings(args.id, settings)
                 .then(() => {
-                   getAllRules(); 
+                    getAllRules();
                 });
         });
 

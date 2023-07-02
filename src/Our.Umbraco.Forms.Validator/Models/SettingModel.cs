@@ -13,6 +13,9 @@ public class SettingModel
 
     [DataMember(Name = "rule")]
     public Guid RuleId { get; set; }
+    
+    [DataMember(Name = "deleted")] 
+    public bool Deleted { get; set; }
 
     [DataMember(Name = "values")]
     public IDictionary<string, string?> Values { get; set; } = new Dictionary<string, string?>();

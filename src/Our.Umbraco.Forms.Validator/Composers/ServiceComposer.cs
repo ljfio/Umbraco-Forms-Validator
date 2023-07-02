@@ -19,7 +19,7 @@ public class ServiceComposer : IComposer
     public void Compose(IUmbracoBuilder builder)
     {
         builder.Services
-            .AddTransient<IPersistedFormValidationSettingFactory, FormValidationSettingFactory>()
+            .AddTransient<IFormValidationSettingFactory, FormValidationSettingFactory>()
             .AddTransient<IFormValidationSettingRepository, FormValidationSettingRepository>()
             .AddTransient<IFormValidationSettingService, FormValidationSettingService>()
             .AddTransient<IFormValidatorService, FormValidatorService>()

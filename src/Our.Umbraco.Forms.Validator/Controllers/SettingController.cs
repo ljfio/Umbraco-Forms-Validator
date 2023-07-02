@@ -8,7 +8,6 @@ using Our.Umbraco.Forms.Validator.Models;
 using Umbraco.Cms.Core.Mapping;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.Common.Attributes;
-using Umbraco.Extensions;
 
 namespace Our.Umbraco.Forms.Validator.Controllers;
 
@@ -16,12 +15,12 @@ namespace Our.Umbraco.Forms.Validator.Controllers;
 public class SettingController : UmbracoAuthorizedJsonController
 {
     private readonly IFormValidationSettingService _settingService;
-    private readonly IPersistedFormValidationSettingFactory _factory;
+    private readonly IFormValidationSettingFactory _factory;
     private readonly IUmbracoMapper _umbracoMapper;
 
     public SettingController(
         IFormValidationSettingService settingService,
-        IPersistedFormValidationSettingFactory factory,
+        IFormValidationSettingFactory factory,
         IUmbracoMapper umbracoMapper)
     {
         _settingService = settingService;
@@ -34,14 +33,24 @@ public class SettingController : UmbracoAuthorizedJsonController
         [FromQuery] Guid id,
         [FromBody] IEnumerable<SettingModel> settings)
     {
-        var entities = settings
-            .Select(setting => _factory.Create(setting.Id, id, setting.RuleId, setting.Values))
-            .WhereNotNull()
+        var settingsToDelete = settings
+            .Where(setting => setting.Deleted)
+            .Select(setting => _factory.ToEntity(setting.Id, id, setting.RuleId, setting.Values))
             .ToList();
 
-        foreach (var entity in entities)
+        foreach (var setting in settingsToDelete)
         {
-            _settingService.Save(entity);
+            _settingService.Delete(setting);
+        }
+        
+        var settingsToSave = settings
+            .Where(setting => !setting.Deleted)
+            .Select(setting => _factory.ToEntity(setting.Id, id, setting.RuleId, setting.Values))
+            .ToList();
+
+        foreach (var setting in settingsToSave)
+        {
+            _settingService.Save(setting);
         }
 
         return Ok();

@@ -3,7 +3,6 @@
 
 using System.Reflection;
 using Newtonsoft.Json;
-using Our.Umbraco.Forms.Validator.Core.Factories;
 using Our.Umbraco.Forms.Validator.Core.Rules;
 using Our.Umbraco.Forms.Validator.Core.Settings;
 using Our.Umbraco.Forms.Validator.Persistence.Dtos;
@@ -11,7 +10,7 @@ using Umbraco.Extensions;
 
 namespace Our.Umbraco.Forms.Validator.Factories;
 
-public class FormValidationSettingFactory : IFormValidationSettingFactory, IPersistedFormValidationSettingFactory
+public class FormValidationSettingFactory : IFormValidationSettingFactory
 {
     private readonly FormValidationSettingTypeCollection _types;
     private readonly FormValidationRuleCollection _rules;
@@ -24,7 +23,19 @@ public class FormValidationSettingFactory : IFormValidationSettingFactory, IPers
         _rules = rules;
     }
 
-    public IFormValidationSetting Create(Guid key, Guid formKey, Guid ruleKey, string type, string definition)
+    public IFormValidationSetting ToEntity(FormValidationSettingDto dto)
+    {
+        var validType = _types[dto.Type];
+
+        if (JsonConvert.DeserializeObject(dto.Definition, validType) is not IFormValidationSetting setting)
+            throw new InvalidOperationException();
+
+        AssociateIdentities(setting, dto.Key, dto.FormKey, dto.RuleKey);
+
+        return setting;
+    }
+
+    public IFormValidationSetting ToEntity(Guid key, Guid formKey, Guid ruleKey, string type, string definition)
     {
         var validType = _types[type];
 
@@ -36,7 +47,7 @@ public class FormValidationSettingFactory : IFormValidationSettingFactory, IPers
         return setting;
     }
 
-    public IFormValidationSetting? Create(Guid key, Guid formKey, Guid ruleKey, IDictionary<string, string?> values)
+    public IFormValidationSetting? ToEntity(Guid key, Guid formKey, Guid ruleKey, IDictionary<string, string?> values)
     {
         var rule = _rules[ruleKey];
 
@@ -88,7 +99,7 @@ public class FormValidationSettingFactory : IFormValidationSettingFactory, IPers
         _ => throw new NotSupportedException("Field type is not supported"),
     };
 
-    public FormValidationSettingDto Create(IFormValidationSetting setting)
+    public FormValidationSettingDto FromEntity(IFormValidationSetting setting)
     {
         var definition = JsonConvert.SerializeObject(setting);
 

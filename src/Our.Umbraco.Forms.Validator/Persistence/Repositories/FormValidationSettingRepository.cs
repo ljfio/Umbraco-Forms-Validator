@@ -20,13 +20,13 @@ namespace Our.Umbraco.Forms.Validator.Persistence.Repositories;
 internal sealed class FormValidationSettingRepository : EntityRepositoryBase<Guid, IFormValidationSetting>,
     IFormValidationSettingRepository
 {
-    private readonly IPersistedFormValidationSettingFactory _settingFactory;
+    private readonly IFormValidationSettingFactory _settingFactory;
 
     public FormValidationSettingRepository(
         IScopeAccessor scopeAccessor,
         AppCaches appCaches,
         ILogger<FormValidationSettingRepository> logger,
-        IPersistedFormValidationSettingFactory settingFactory) : base(scopeAccessor, appCaches, logger)
+        IFormValidationSettingFactory settingFactory) : base(scopeAccessor, appCaches, logger)
     {
         _settingFactory = settingFactory;
     }
@@ -39,7 +39,7 @@ internal sealed class FormValidationSettingRepository : EntityRepositoryBase<Gui
 
         var row = Database.SingleOrDefault<FormValidationSettingDto>(query);
 
-        return _settingFactory.Create(row.Key, row.FormKey, row.RuleKey, row.Type, row.Definition);
+        return _settingFactory.ToEntity(row);
     }
 
     /// <inheritdoc />
@@ -61,7 +61,7 @@ internal sealed class FormValidationSettingRepository : EntityRepositoryBase<Gui
         var rows = Database.Fetch<FormValidationSettingDto>(translator.Translate());
 
         return rows
-            .Select(setting => _settingFactory.Create(setting.Key, setting.FormKey, setting.RuleKey, setting.Type, setting.Definition))
+            .Select(row => _settingFactory.ToEntity(row))
             .ToList();
     }
 
@@ -70,7 +70,7 @@ internal sealed class FormValidationSettingRepository : EntityRepositoryBase<Gui
     {
         item.ResetIdentity();
         item.AddingEntity();
-        var row = _settingFactory.Create(item);
+        var row = _settingFactory.FromEntity(item);
         Database.Insert(row);
     }
 
@@ -78,7 +78,7 @@ internal sealed class FormValidationSettingRepository : EntityRepositoryBase<Gui
     protected override void PersistUpdatedItem(IFormValidationSetting item)
     {
         item.UpdatingEntity();
-        var row = _settingFactory.Create(item);
+        var row = _settingFactory.FromEntity(item);
         Database.Update(row);
     }
 
