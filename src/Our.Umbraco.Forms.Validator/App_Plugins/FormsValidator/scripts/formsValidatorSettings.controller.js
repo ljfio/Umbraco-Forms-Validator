@@ -54,13 +54,29 @@
         }
 
         vm.deleteSettings = function () {
+            var toDelete = [];
+            
             _.each(vm.settings, (e, i) => {
                 if (e.selected){
                     e.data.deleted = true;
+                    e.selected = false;
+                    
                     vm.deleted.push(e);
-                    vm.settings.remove(e);
+                    
+                    toDelete.push({
+                        element: e,
+                        index: i
+                    });
                 }
             });
+            
+            toDelete.sort((a, b) => a.index - b.index);
+            
+            _.each(toDelete, (setting) => {
+                vm.settings.splice(setting.index, 1);
+            });
+            
+            vm.settingSelected = false;
         }
 
         vm.newSetting = function () {
